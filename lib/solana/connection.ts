@@ -11,13 +11,14 @@ function resolveServerRpcUrl(): string {
 
 export function rpcUrlFromCluster(cluster: SolanaCluster): string {
   return cluster === 'devnet'
-    ? (process.env.NEXT_PUBLIC_SOLANA_RPC_URL ?? clusterApiUrl('devnet'))
-    : (process.env.NEXT_PUBLIC_SOLANA_RPC_URL ?? clusterApiUrl('mainnet-beta'))
+    ? (process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.trim() || clusterApiUrl('devnet'))
+    : (process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.trim() || clusterApiUrl('mainnet-beta'))
 }
 
 export function createBrowserConnection(): Connection {
-  const cluster = (process.env.NEXT_PUBLIC_SOLANA_NETWORK ?? 'mainnet-beta') as Cluster
-  const url = process.env.NEXT_PUBLIC_SOLANA_RPC_URL ?? clusterApiUrl(cluster === 'devnet' ? 'devnet' : 'mainnet-beta')
+  const cluster = (process.env.NEXT_PUBLIC_SOLANA_NETWORK?.trim() || 'mainnet-beta') as Cluster
+  const url =
+    process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.trim() || clusterApiUrl(cluster === 'devnet' ? 'devnet' : 'mainnet-beta')
   return new Connection(url, RPC_COMMITMENT)
 }
 

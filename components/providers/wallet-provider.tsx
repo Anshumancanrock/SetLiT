@@ -14,8 +14,8 @@ import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const RPC_ENDPOINT = process.env.NEXT_PUBLIC_SOLANA_RPC_URL ?? 'https://api.mainnet-beta.solana.com'
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://settlix.itssvk.dev'
+const RPC_ENDPOINT = process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.trim() || 'https://api.mainnet-beta.solana.com'
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'https://settlix.itssvk.dev'
 
 export function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
   const wallets = useMemo(
