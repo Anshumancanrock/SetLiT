@@ -33,7 +33,7 @@ export function SetLiTLogo({ className }: { className?: string }) {
     <div className='group/logo flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-[0.98]'>
       <SetLiTLogoConcise className={cn('transition-transform duration-500 group-hover/logo:rotate-180', className)} />
       <span className='group-data-[collapsible=icon]:hidden text-xl font-bold tracking-tight truncate'>
-        Settl<span className='text-primary'>i</span>X
+        SetL <span className='text-primary'>i</span>T
       </span>
     </div>
   )

@@ -27,7 +27,7 @@ export function InvoiceDetails({ invoice, isOverdue }: InvoiceDetailsProps) {
       <div className='flex items-start justify-between'>
         <div>
           <p className='text-xs font-semibold uppercase tracking-widest text-muted-foreground'>
-            Settl<span className='text-primary'>i</span>X Invoice
+            SetL <span className='text-primary'>i</span>T Invoice
           </p>
           <p className='mt-0.5 font-mono text-[11px] text-muted-foreground/60'>
             #{invoice.id.slice(-10).toUpperCase()}

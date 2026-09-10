@@ -80,9 +80,9 @@ export default function OGImage() {
           lineHeight: 1,
         }}
       >
-        {'Settl'}
+        {'SetL\u00A0'}
         <span style={{ color: '#432dd7' }}>{'i'}</span>
-        {'X'}
+        {'T'}
       </div>
 
       {/* Tagline */}

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 48" width="110" height="48" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113 48" width="113" height="48" fill="none">
   <defs>
     <linearGradient id="g" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#432dd7"/>
@@ -17,5 +17,5 @@
     font-weight="700"
     font-size="22"
     letter-spacing="-0.5"
-    fill="#0c0a09">SetL <tspan fill="#432dd7">i</tspan>T</text>
+    fill="#0c0a09">SetL&#160;<tspan fill="#432dd7">i</tspan>T</text>
 </svg>

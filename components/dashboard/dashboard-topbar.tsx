@@ -43,7 +43,7 @@ export function DashboardTopbar() {
       <Link href='/dashboard' className='group flex md:hidden items-center gap-1.5 mr-auto'>
         <SetLiTLogoConcise className='h-6 w-6 transition-transform duration-500 group-hover:rotate-180' />
         <span className='text-base font-bold tracking-tight'>
-          Settl<span className='text-primary'>i</span>X
+          SetL <span className='text-primary'>i</span>T
         </span>
       </Link>
 
