@@ -32,7 +32,7 @@ export function EmbedHero() {
       <p className='max-w-xl text-lg text-muted-foreground/80 leading-relaxed'>
         Drop one script tag and call{' '}
         <code className='rounded-md bg-muted/60 px-2 py-1 font-mono text-sm text-foreground border border-border/40'>
-          Settlix.open()
+          SetLiT.open()
         </code>
         . No SDK, no wallet libraries, no framework required.
       </p>
@@ -78,7 +78,7 @@ export function EmbedSections({ snippets }: EmbedSectionsProps) {
               <code className='rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-foreground border border-border/40'>
                 YOUR_LINK_ID
               </code>{' '}
-              with the ID from your Settlix dashboard.
+              with the ID from your SetL iT dashboard.
             </p>
             <a
               href='/demo.html'
@@ -95,7 +95,7 @@ export function EmbedSections({ snippets }: EmbedSectionsProps) {
 
       <LiveDemo />
 
-      <Section id='full-api' icon={Code2} title='Full API Reference' subtitle='All options accepted by Settlix.open().'>
+      <Section id='full-api' icon={Code2} title='Full API Reference' subtitle='All options accepted by SetLiT.open().'>
         <CodeBlock code={snippets.fullApi} label='javascript' />
 
         <div className='mt-6 overflow-hidden rounded-2xl border border-border/40 bg-card/30 shadow-sm'>
@@ -150,7 +150,7 @@ export function EmbedSections({ snippets }: EmbedSectionsProps) {
           <code className='rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-foreground border border-border/40'>
             metadata
           </code>{' '}
-          is stored alongside the transaction in Settlix and included in every webhook delivery — so your backend can
+          is stored alongside the transaction in SetL iT and included in every webhook delivery — so your backend can
           correlate without relying solely on the client-side callback.
         </p>
       </Section>
@@ -159,7 +159,7 @@ export function EmbedSections({ snippets }: EmbedSectionsProps) {
         id='embed-webhooks'
         icon={Webhook}
         title='Webhook Payload'
-        subtitle='Settlix sends a signed POST to your endpoint on every confirmed payment.'
+        subtitle='SetL iT sends a signed POST to your endpoint on every confirmed payment.'
       >
         <CodeBlock code={snippets.webhookPayload} label='json' />
         <div className='mt-6 rounded-2xl border border-indigo-500/20 dark:border-indigo-400/20 bg-indigo-500/5 dark:bg-indigo-400/5 p-5 text-sm'>
@@ -173,7 +173,7 @@ export function EmbedSections({ snippets }: EmbedSectionsProps) {
             </code>{' '}
             and compare it to the hex value in{' '}
             <code className='font-mono text-foreground bg-background rounded px-1 border border-border/40'>
-              X-Settlix-Signature
+              X-SetLiT-Signature
             </code>
             . Reject the request if they don&apos;t match.
           </p>
@@ -222,7 +222,7 @@ export function EmbedSections({ snippets }: EmbedSectionsProps) {
           </code>
           , calls to{' '}
           <code className='rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-foreground border border-border/40'>
-            Settlix.open()
+            SetLiT.open()
           </code>{' '}
           before the script executes will be queued and replayed automatically.
         </p>

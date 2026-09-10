@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Settlix — Checkout Demo</title>
+    <title>SetL iT — Checkout Demo</title>
     <style>
       *,
       *::before,
@@ -330,7 +330,7 @@
       <a class="logo" href="/">
         <!-- <img
           src="/logo.png"
-          alt="Settlix Logo"
+          alt="SetL iT Logo"
           style="width: 40px; height: 40px; border-radius: 0; margin-right: 10px"
         /> -->
         <!-- <span
@@ -352,7 +352,7 @@
             <path d="M16 26 Q 26 26 22 22" stroke="var(--text)" stroke-width="6" stroke-linecap="round" />
             <path d="M6 26L26 6" stroke="url(#g)" stroke-width="6" stroke-linecap="round" />
           </g>
-          <!-- Text "SettliX" with "i" in primary color, baseline vertically centered -->
+          <!-- Text "SetL iT" with "i" in primary color, baseline vertically centered -->
           <text
             x="42"
             y="32"
@@ -361,7 +361,7 @@
             font-size="22"
             letter-spacing="-0.5"
             fill="var(--text)"
-          >Settl<tspan fill="#432dd7">i</tspan>X</text>
+          >SetL <tspan fill="#432dd7">i</tspan>T</text>
         </svg>
       </a>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">☀️</button>
@@ -371,7 +371,7 @@
       <div class="badge">⚡ Checkout Demo</div>
       <h1>One script tag.<br /><span>Any website.</span></h1>
       <p class="sub">
-        Paste your Payment Link ID and hit Pay — the Settlix modal opens right here, exactly as your users will see it.
+        Paste your Payment Link ID and hit Pay — the SetL iT modal opens right here, exactly as your users will see it.
       </p>
 
       <div class="input-group">
@@ -437,8 +437,8 @@
         </div>
         <pre><span class="kw">&lt;script</span> src=<span class="str">"<span id="scriptSrc"></span>"</span><span class="kw">&gt;&lt;/script&gt;</span>
 
-<span class="kw">&lt;button</span> <span class="fn">onclick</span>=<span class="str">"Settlix.open({ linkId: '<span id="codeLinkId">...</span>' })"</span><span class="kw">&gt;</span>
-  Pay with Settlix
+<span class="kw">&lt;button</span> <span class="fn">onclick</span>=<span class="str">"SetLiT.open({ linkId: '<span id="codeLinkId">...</span>' })"</span><span class="kw">&gt;</span>
+  Pay with SetL iT
 <span class="kw">&lt;/button&gt;</span></pre>
       </div>
     </div>
@@ -452,9 +452,9 @@
         return (
           '<script src="' +
           scriptUrl +
-          '"><\/script>\n\n<button onclick="Settlix.open({ linkId: \'' +
+          '"><\/script>\n\n<button onclick="SetLiT.open({ linkId: \'' +
           id +
-          '\' })">\n  Pay with Settlix\n</button>'
+          '\' })">\n  Pay with SetL iT\n</button>'
         )
       }
 
@@ -467,7 +467,7 @@
       function openCheckout() {
         var id = document.getElementById('linkId').value.trim()
         if (!id) return
-        Settlix.open({
+        SetLiT.open({
           linkId: id,
           onSuccess: function (txSig) {
             console.log('[settlix] paid:', txSig)

@@ -1,8 +1,8 @@
-# Settlix
+# SetL iT
 
 Non-custodial Solana payment infrastructure for merchants and creators.
 
-Settlix lets merchants generate payment links, invoices, and subscriptions that accept any SPL token. Buyers pay with whatever they're holding, and merchants receive the exact USDC amount they asked for, settled wallet to wallet in under a second through Jupiter's ExactOut swap.
+SetL iT lets merchants generate payment links, invoices, and subscriptions that accept any SPL token. Buyers pay with whatever they're holding, and merchants receive the exact USDC amount they asked for, settled wallet to wallet in under a second through Jupiter's ExactOut swap.
 
 Built for the [Colosseum Frontier 2026 Hackathon](https://colosseum.org), Payments & Remittance track.
 
@@ -12,9 +12,9 @@ Built for the [Colosseum Frontier 2026 Hackathon](https://colosseum.org), Paymen
 - If a merchant wants USDC but the buyer only holds BONK or SOL, the sale dies. The buyer has to leave, swap manually, and come back.
 - Coinbase Commerce shut down on March 31 2026 and left international merchants without a replacement. Its successor covers the US and Singapore only.
 
-## How Settlix solves it
+## How SetL iT solves it
 
-- Funds move straight from the buyer's wallet to the merchant's wallet. Settlix never holds anything.
+- Funds move straight from the buyer's wallet to the merchant's wallet. SetL iT never holds anything.
 - Jupiter's ExactOut swap API atomically converts the buyer's token and delivers the precise amount the merchant requested.
 - There's no platform fee. The only cost is the Solana network fee, around $0.00025.
 - Solana finalizes in under a second, so there are no payout delays or holds.
@@ -26,7 +26,7 @@ Built for the [Colosseum Frontier 2026 Hackathon](https://colosseum.org), Paymen
 ```mermaid
 sequenceDiagram
     participant B as Buyer Wallet (any SPL token)
-    participant C as Settlix Checkout
+    participant C as SetL iT Checkout
     participant J as Jupiter Swap v2
     participant M as Merchant Wallet (USDC)
 
@@ -46,7 +46,7 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant B as Buyer Wallet (USDC)
-    participant C as Settlix Checkout
+    participant C as SetL iT Checkout
     participant M as Merchant Wallet (USDC)
 
     B->>C: Opens payment link / invoice
@@ -71,7 +71,7 @@ Both paths converge at `lib/services/payment-submit.service.ts`, which verifies 
 | Embeddable widget      | Drop-in `<script>` tag, iframe checkout (`/embed/[id]`)  |
 | REST API               | Full programmatic access, bearer token auth              |
 | API keys               | SHA-256 hashed at rest, accepted on all routes           |
-| HMAC webhooks          | `X-Settlix-Signature: sha256=…` on every payment event   |
+| HMAC webhooks          | `X-SetLiT-Signature: sha256=…` on every payment event   |
 | Merchant personal page | Open-amount transfers at `/pay/u/[merchantId]`           |
 | Dashboard              | Payment history, stats, revenue charts                   |
 | Email receipts         | Buyer and merchant notifications via Resend              |
@@ -107,7 +107,7 @@ Both paths converge at `lib/services/payment-submit.service.ts`, which verifies 
 
 Two layers share the same `requireAuth(req)` call.
 
-Session cookie: the client signs a nonce with their Solana wallet, the server verifies the Ed25519 signature, and the response sets a 24-hour HS256 JWT as the `settlix_session` httpOnly cookie.
+Session cookie: the client signs a nonce with their Solana wallet, the server verifies the Ed25519 signature, and the response sets a 24-hour HS256 JWT as the `setlit_session` httpOnly cookie.
 
 Bearer API key: `Authorization: Bearer <key>`. The key is SHA-256 hashed and looked up in the `ApiKey` table. It takes priority over the session cookie.
 
@@ -165,4 +165,4 @@ bun dev
 
 ## License
 
-MIT, Copyright (c) 2026 Settlix
+MIT, Copyright (c) 2026 SetL iT

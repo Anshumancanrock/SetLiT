@@ -77,7 +77,7 @@ export async function buildSubscriptionAuthorizationTx(params: {
     new TransactionInstruction({
       programId: new PublicKey(MEMO_PROGRAM_ID),
       keys: [],
-      data: Buffer.from(`settlix:sub:${planId}`, 'utf-8'),
+      data: Buffer.from(`setlit:sub:${planId}`, 'utf-8'),
     }),
   ]
 
@@ -145,7 +145,7 @@ export async function buildRenewalTx(params: {
     new TransactionInstruction({
       programId: new PublicKey(MEMO_PROGRAM_ID),
       keys: [],
-      data: Buffer.from(`settlix:renewal:${subscriptionId}`, 'utf-8'),
+      data: Buffer.from(`setlit:renewal:${subscriptionId}`, 'utf-8'),
     }),
   ]
 

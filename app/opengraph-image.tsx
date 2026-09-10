@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Settlix — Accept any token. Receive USDC.'
+export const alt = 'SetL iT — Accept any token. Receive USDC.'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

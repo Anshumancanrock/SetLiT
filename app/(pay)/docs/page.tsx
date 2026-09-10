@@ -7,7 +7,7 @@ import { EmbedHero, EmbedSections } from '@/components/docs/embed-sections'
 import { RestApiHero, RestApiSections } from '@/components/docs/rest-api-sections'
 
 export default function DocsPage() {
-  const [origin, setOrigin] = useState('https://settlix.xyz')
+  const [origin, setOrigin] = useState('https://setlit.xyz')
   useEffect(() => {
     setOrigin(window.location.origin)
   }, [])

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Settlix',
+  name: 'SetL iT',
   url: 'https://settlix.itssvk.dev',
   applicationCategory: 'FinanceApplication',
   operatingSystem: 'Web',

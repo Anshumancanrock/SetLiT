@@ -48,5 +48,5 @@ export function getCronSecret(): string {
 }
 
 export function getEmailSender(): string {
-  return process.env.EMAIL_SENDER?.trim() || 'Settlix <payments@settlix.itssvk.dev>'
+  return process.env.EMAIL_SENDER?.trim() || 'SetL iT <payments@settlix.itssvk.dev>'
 }

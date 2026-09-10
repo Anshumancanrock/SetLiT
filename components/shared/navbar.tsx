@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { AnimatedThemeButton } from '@/components/shared/animated-theme-button'
 import { useTheme } from 'next-themes'
 import { Blocks, BookOpen } from 'lucide-react'
-import { SettlixLogo } from '@/components/shared/settlix-logo'
+import { SetLiTLogo } from '@/components/shared/setlit-logo'
 
 export function Navbar({ className }: { className?: string }) {
   const pathname = usePathname()
@@ -22,7 +22,7 @@ export function Navbar({ className }: { className?: string }) {
       )}
     >
       <Link href='/' className='group mr-2 flex items-center gap-2 text-base font-bold tracking-tight text-foreground'>
-        <SettlixLogo className='h-8 w-8' />
+        <SetLiTLogo className='h-8 w-8' />
       </Link>
 
       <div className='flex-1' />

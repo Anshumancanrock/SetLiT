@@ -23,14 +23,14 @@ type SessionRegistry = Map<string, SolanaPaySession>
 
 declare global {
   // Persist across hot-reloads in development.
-  var __settlixSolanaPaySessionRegistry: SessionRegistry | undefined
+  var __setlitSolanaPaySessionRegistry: SessionRegistry | undefined
 }
 
 function getRegistry(): SessionRegistry {
-  if (!globalThis.__settlixSolanaPaySessionRegistry) {
-    globalThis.__settlixSolanaPaySessionRegistry = new Map()
+  if (!globalThis.__setlitSolanaPaySessionRegistry) {
+    globalThis.__setlitSolanaPaySessionRegistry = new Map()
   }
-  return globalThis.__settlixSolanaPaySessionRegistry
+  return globalThis.__setlitSolanaPaySessionRegistry
 }
 
 export function createSolanaPaySession(session: SolanaPaySession): void {

@@ -63,7 +63,7 @@ export async function buildDirectSettlementPaymentTx(params: {
     tokenProgram,
   )
 
-  // Embed the link ID as an on-chain memo so Settlix payments are identifiable
+  // Embed the link ID as an on-chain memo so SetL iT payments are identifiable
   // by any block explorer or indexer without needing to trace our DB.
   const instructions = [createMerchantAtaIx, transferIx]
   if (linkId) {
@@ -71,7 +71,7 @@ export async function buildDirectSettlementPaymentTx(params: {
       new TransactionInstruction({
         programId: new PublicKey(MEMO_PROGRAM_ID),
         keys: [],
-        data: Buffer.from(`settlix:${linkId}`, 'utf-8'),
+        data: Buffer.from(`setlit:${linkId}`, 'utf-8'),
       }),
     )
   }

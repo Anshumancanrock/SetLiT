@@ -119,7 +119,7 @@ async function main() {
     update: { lastSeenAt: new Date() },
     create: {
       wallet: MERCHANT_WALLET,
-      webhookUrl: 'https://hooks.example.com/settlix',
+      webhookUrl: 'https://hooks.example.com/setlit',
       webhookSecret: 'whsec_' + hex64().slice(0, 32),
       createdAt: pastDate(120),
       lastSeenAt: new Date(),

@@ -7,7 +7,7 @@ interface Props {
   searchParams: Promise<{ metadata?: string }>
 }
 
-export const metadata = { title: 'Settlix Checkout' }
+export const metadata = { title: 'SetL iT Checkout' }
 
 export default async function EmbedPage({ params, searchParams }: Props) {
   const { id } = await params

@@ -64,7 +64,7 @@ export function ApiKeysSection({ keys, isLoading, revokeKey }: ApiKeysSectionPro
                 <Key className='h-5 w-5 text-muted-foreground/50' />
               </div>
               <p className='text-sm font-medium text-muted-foreground'>No API keys yet</p>
-              <p className='mt-1 text-xs text-muted-foreground/60'>Create a key to start using the Settlix REST API.</p>
+              <p className='mt-1 text-xs text-muted-foreground/60'>Create a key to start using the SetL iT REST API.</p>
             </div>
           ) : (
             keys.map((key) => (

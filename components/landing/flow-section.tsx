@@ -47,7 +47,7 @@ function FlowLine({ color = 'primary', delay = 0 }: { color?: 'primary' | 'emera
 }
 
 const stats = [
-  { value: '$0', label: 'Held by Settlix', note: 'Non-custodial' },
+  { value: '$0', label: 'Held by SetL iT', note: 'Non-custodial' },
   { value: '100%', label: 'On-chain execution', note: 'Trustless' },
   { value: 'Best', label: 'Swap routes', note: 'via Jupiter' },
 ]
@@ -90,7 +90,7 @@ export function FlowSection() {
             transition={{ delay: 0.2 }}
             className='mx-auto mt-6 max-w-2xl text-lg text-muted-foreground'
           >
-            Every transfer is an atomic on-chain swap routed by Jupiter. Settlix is simply the coordinator — ensuring
+            Every transfer is an atomic on-chain swap routed by Jupiter. SetL iT is simply the coordinator — ensuring
             smooth execution without ever taking custody of your funds.
           </motion.p>
         </div>
@@ -184,7 +184,7 @@ export function FlowSection() {
           </motion.div>
         </div>
 
-        {/* Settlix coordinator callout */}
+        {/* SetL iT coordinator callout */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@ export function FlowSection() {
             <div className='flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary'>
               <ShieldCheck className='h-3.5 w-3.5' />
             </div>
-            <span className='font-semibold text-foreground'>Settlix</span>
+            <span className='font-semibold text-foreground'>SetL iT</span>
             never holds, routes, or custodies your funds.
           </div>
         </motion.div>

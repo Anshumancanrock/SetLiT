@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-export function SettlixLogoConcise({ className }: { className?: string }) {
+export function SetLiTLogoConcise({ className }: { className?: string }) {
   return (
     <svg viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg' className={className}>
       <defs>
@@ -28,10 +28,10 @@ export function SettlixLogoConcise({ className }: { className?: string }) {
   )
 }
 
-export function SettlixLogo({ className }: { className?: string }) {
+export function SetLiTLogo({ className }: { className?: string }) {
   return (
     <div className='group/logo flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-[0.98]'>
-      <SettlixLogoConcise className={cn('transition-transform duration-500 group-hover/logo:rotate-180', className)} />
+      <SetLiTLogoConcise className={cn('transition-transform duration-500 group-hover/logo:rotate-180', className)} />
       <span className='group-data-[collapsible=icon]:hidden text-xl font-bold tracking-tight truncate'>
         Settl<span className='text-primary'>i</span>X
       </span>

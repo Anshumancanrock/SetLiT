@@ -9,7 +9,7 @@ import { signSession, SESSION_COOKIE, sessionCookieOptions } from '@/lib/auth/se
 import { prisma } from '@/lib/db'
 
 /** The exact message prefix that clients must sign. */
-export const SIGN_MESSAGE_PREFIX = 'Sign in to Settlix:\n'
+export const SIGN_MESSAGE_PREFIX = 'Sign in to SetL iT:\n'
 
 /**
  * POST /api/auth/login
@@ -20,7 +20,7 @@ export const SIGN_MESSAGE_PREFIX = 'Sign in to Settlix:\n'
  *   - nonce:     UUID previously obtained from GET /api/auth/nonce
  *
  * The expected signed message is:
- *   "Sign in to Settlix:\n<nonce>"
+ *   "Sign in to SetL iT:\n<nonce>"
  *
  * On success, sets an HttpOnly JWT cookie and returns { wallet }.
  */

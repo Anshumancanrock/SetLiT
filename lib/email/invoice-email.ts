@@ -50,7 +50,7 @@ export function buildInvoiceEmailHtml(data: InvoiceEmailData): string {
           <!-- Header -->
           <tr>
             <td style="background-color:#09090b;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;">
-              <p style="margin:0;font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">Settlix</p>
+              <p style="margin:0;font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">SetL iT</p>
               <p style="margin:8px 0 0;font-size:13px;color:#71717a;letter-spacing:0.5px;text-transform:uppercase;">Invoice</p>
             </td>
           </tr>
@@ -109,7 +109,7 @@ export function buildInvoiceEmailHtml(data: InvoiceEmailData): string {
           <tr>
             <td style="background-color:#f9fafb;border:1px solid #e5e7eb;border-top:0;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">
               <p style="margin:0;font-size:12px;color:#9ca3af;">
-                Sent by <span style="font-family:monospace;">${shortenedWallet}</span> via Settlix &nbsp;·&nbsp; Powered by Solana
+                Sent by <span style="font-family:monospace;">${shortenedWallet}</span> via SetL iT &nbsp;·&nbsp; Powered by Solana
               </p>
             </td>
           </tr>
@@ -196,7 +196,7 @@ export function buildReceiptEmailHtml(data: ReceiptEmailData): string {
           <!-- Header -->
           <tr>
             <td style="background-color:#09090b;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;">
-              <p style="margin:0;font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">Settlix</p>
+              <p style="margin:0;font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">SetL iT</p>
               <p style="margin:8px 0 0;font-size:13px;color:#71717a;letter-spacing:0.5px;text-transform:uppercase;">Payment Receipt</p>
             </td>
           </tr>
@@ -280,7 +280,7 @@ export function buildReceiptEmailHtml(data: ReceiptEmailData): string {
           <tr>
             <td style="background-color:#f9fafb;border:1px solid #e5e7eb;border-top:0;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">
               <p style="margin:0;font-size:12px;color:#9ca3af;">
-                Sent by <span style="font-family:monospace;">${shortenedWallet}</span> via Settlix &nbsp;·&nbsp; Powered by Solana
+                Sent by <span style="font-family:monospace;">${shortenedWallet}</span> via SetL iT &nbsp;·&nbsp; Powered by Solana
               </p>
             </td>
           </tr>

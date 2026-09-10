@@ -34,7 +34,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { DollarSign } from 'lucide-react'
-import { SettlixLogo } from '@/components/shared/settlix-logo'
+import { SetLiTLogo } from '@/components/shared/setlit-logo'
 
 const navItems = [
   {
@@ -103,7 +103,7 @@ export function AppSidebar() {
           onClick={handleMobileClose}
           className='flex w-fit items-center px-1 ml-2 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center'
         >
-          <SettlixLogo className='h-8 w-8' />
+          <SetLiTLogo className='h-8 w-8' />
         </Link>
       </SidebarHeader>
 

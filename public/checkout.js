@@ -1,22 +1,22 @@
-/* Settlix Checkout Widget v1
+/* SetL iT Checkout Widget v1
  *
  * Usage:
  *   <script src="https://settlix.itssvk.dev/checkout.js"></script>
- *   <button onclick="Settlix.open({ linkId: 'abc123' })">Pay Now</button>
+ *   <button onclick="SetLiT.open({ linkId: 'abc123' })">Pay Now</button>
  *
  * Full API:
- *   Settlix.open({
+ *   SetLiT.open({
  *     linkId:   'abc123',
  *     metadata: { orderId: '1234', userId: 'u_567' },   // echoed back in callbacks
  *     onSuccess: function(txSignature, metadata) { ... }, // called when payment confirmed
  *     onClose:   function(metadata) { ... },              // called when user dismisses
  *   })
- *   Settlix.close()  // programmatically close
+ *   SetLiT.close()  // programmatically close
  */
 ;(function (win, doc) {
   'use strict'
 
-  // Auto-detect the Settlix app origin from the script's own src attribute.
+  // Auto-detect the SetL iT app origin from the script's own src attribute.
   // This makes the widget work in local dev, staging, and production
   // without hardcoding a domain.
   var ORIGIN = (function () {
@@ -70,7 +70,7 @@
 
   function open(opts) {
     if (!opts || !opts.linkId) {
-      console.error('[Settlix] Settlix.open() requires { linkId: "..." }')
+      console.error('[SetL iT] SetLiT.open() requires { linkId: "..." }')
       return
     }
     // Prevent stacking — close any existing modal first
@@ -84,8 +84,8 @@
     var overlay = doc.createElement('div')
     overlay.setAttribute('role', 'dialog')
     overlay.setAttribute('aria-modal', 'true')
-    overlay.setAttribute('aria-label', 'Settlix Checkout')
-    overlay.setAttribute('data-settlix-overlay', '')
+    overlay.setAttribute('aria-label', 'SetL iT Checkout')
+    overlay.setAttribute('data-setlit-overlay', '')
     _applyStyles(overlay, {
       position: 'fixed',
       inset: '0',
@@ -162,14 +162,14 @@
       }
     }
     iframe.src = iframeSrc
-    iframe.title = 'Settlix Checkout'
+    iframe.title = 'SetL iT Checkout'
     // clipboard-write/read: wallet adapters copy/read addresses
     // popups: some wallets (Backpack, mobile flows) open a popup for auth
     iframe.setAttribute('allow', 'clipboard-write; clipboard-read; popups')
     iframe.setAttribute('loading', 'eager')
     _applyStyles(iframe, {
       width: '100%',
-      height: '580px', // initial estimate — settlix:resize will correct this
+      height: '580px', // initial estimate — setlit:resize will correct this
       border: 'none',
       display: 'block',
       borderRadius: '24px',
@@ -183,11 +183,11 @@
       var data = ev.data
       if (!data || typeof data !== 'object' || typeof data.type !== 'string') return
 
-      if (data.type === 'settlix:resize') {
+      if (data.type === 'setlit:resize') {
         // Clamp to 90% of the viewport so the modal never overflows the screen
         var maxH = Math.floor(win.innerHeight * 0.9)
         iframe.style.height = Math.min(data.height, maxH) + 'px'
-      } else if (data.type === 'settlix:paid') {
+      } else if (data.type === 'setlit:paid') {
         _paid = true
         // Fire the merchant callback immediately so fulfillment can start.
         // metadata is echoed from the iframe so the merchant can correlate order/user.
@@ -196,7 +196,7 @@
         }
         // Give the success overlay inside the iframe ~1.8 s to show, then close
         setTimeout(close, 1800)
-      } else if (data.type === 'settlix:close') {
+      } else if (data.type === 'setlit:close') {
         _dismiss(opts, _meta)
       }
     }
@@ -236,8 +236,8 @@
 
   // ── Public API ─────────────────────────────────────────────────────────────
   // Replay any calls queued before the script finished loading
-  // (e.g. merchant used `async` attribute or called Settlix.open() early)
-  var _queue = win.Settlix && Array.isArray(win.Settlix._q) ? win.Settlix._q : []
-  win.Settlix = { open: open, close: close }
+  // (e.g. merchant used `async` attribute or called SetLiT.open() early)
+  var _queue = win.SetLiT && Array.isArray(win.SetLiT._q) ? win.SetLiT._q : []
+  win.SetLiT = { open: open, close: close }
   for (var _i = 0; _i < _queue.length; _i++) open(_queue[_i])
 })(window, document)

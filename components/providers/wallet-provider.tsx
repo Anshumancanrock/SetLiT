@@ -23,7 +23,7 @@ export function SolanaWalletProvider({ children }: { children: React.ReactNode }
       new SolanaMobileWalletAdapter({
         addressSelector: createDefaultAddressSelector(),
         appIdentity: {
-          name: 'Settlix',
+          name: 'SetL iT',
           uri: typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : DOMAIN,
           icon: 'favicon.ico',
         },

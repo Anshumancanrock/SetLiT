@@ -35,7 +35,7 @@ export function RestApiHero() {
         </span>
       </div>
       <h1 className='mb-6 text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl'>
-        Settlix API
+        SetL iT API
         <br />
         <span className='text-muted-foreground'>for your backend.</span>
       </h1>
@@ -371,7 +371,7 @@ export function RestApiSections({ apiSnippets }: RestApiSectionsProps) {
         id='api-webhooks'
         icon={Webhook}
         title='Webhooks'
-        subtitle='Configure a webhook — Settlix POSTs to your URL on every confirmed payment.'
+        subtitle='Configure a webhook — SetL iT POSTs to your URL on every confirmed payment.'
       >
         <div className='space-y-4'>
           <MethodBadge method='PATCH' path='/api/webhook' />

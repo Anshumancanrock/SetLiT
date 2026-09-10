@@ -47,6 +47,6 @@ export default async function ManageSubscriptionPage({ params }: Props) {
 export async function generateMetadata({ params }: Props) {
   const { id } = await params
   const sub = await getSubscriberById(id).catch(() => null)
-  const title = sub?.plan.title ? `Manage · ${sub.plan.title} · Settlix` : 'Manage Subscription · Settlix'
+  const title = sub?.plan.title ? `Manage · ${sub.plan.title} · SetL iT` : 'Manage Subscription · SetL iT'
   return { title }
 }

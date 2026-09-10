@@ -1,6 +1,6 @@
 # Jupiter Developer Platform — DX Report
 
-**Project:** Settlix — Non-custodial payment infrastructure on Solana  
+**Project:** SetL iT — Non-custodial payment infrastructure on Solana  
 **Builder:** Anshuman  
 **Integration:** Swap V2 (`/order` ExactOut + `/execute`)  
 **Stack:** Next.js 16, Prisma, `@solana/web3.js`, `@solana/spl-token`  
@@ -11,7 +11,7 @@
 
 ## What I Built
 
-Settlix is a non-custodial payment platform for Solana merchants. The core product: merchants create payment links, invoices, and subscription plans priced in USDC — and their customers pay in _any_ Solana token they hold (SOL, BONK, JUP, whatever). The merchant always receives the exact USDC amount specified, with zero slippage risk on their side.
+SetL iT is a non-custodial payment platform for Solana merchants. The core product: merchants create payment links, invoices, and subscription plans priced in USDC — and their customers pay in _any_ Solana token they hold (SOL, BONK, JUP, whatever). The merchant always receives the exact USDC amount specified, with zero slippage risk on their side.
 
 Jupiter's Swap V2 ExactOut is the primitive that makes this possible. The checkout flow:
 
@@ -23,19 +23,19 @@ Jupiter's Swap V2 ExactOut is the primitive that makes this possible. The checko
 
 No custodial intermediary, no manual conversion, no exchange rate risk for the merchant.
 
-**This is not a typical Jupiter integration.** Most Jupiter integrations are swap UIs: the user controls the input amount, Jupiter estimates the output, and the user accepts some price impact. Settlix inverts the model entirely. The merchant controls the output — the USDC amount they need to receive is fixed — and Jupiter's job is to compute whatever input the payer needs to supply. Jupiter becomes payment rails, not a trading interface. The payer never thinks about swapping. They pick a token, sign once, and the merchant's wallet receives the exact amount the invoice says.
+**This is not a typical Jupiter integration.** Most Jupiter integrations are swap UIs: the user controls the input amount, Jupiter estimates the output, and the user accepts some price impact. SetL iT inverts the model entirely. The merchant controls the output — the USDC amount they need to receive is fixed — and Jupiter's job is to compute whatever input the payer needs to supply. Jupiter becomes payment rails, not a trading interface. The payer never thinks about swapping. They pick a token, sign once, and the merchant's wallet receives the exact amount the invoice says.
 
 ---
 
 ## Before / After: How Jupiter Changed the Product
 
 **Before Jupiter (original design):**  
-The first version of Settlix required both parties to use USDC. Merchants had to tell customers "you need USDC to pay me." That kills conversion — most Solana users hold SOL, meme tokens, or whatever they accumulated. The UX was: pay page → "you need USDC" → go to a DEX → swap → come back → pay. Three extra steps that most users drop off at.
+The first version of SetL iT required both parties to use USDC. Merchants had to tell customers "you need USDC to pay me." That kills conversion — most Solana users hold SOL, meme tokens, or whatever they accumulated. The UX was: pay page → "you need USDC" → go to a DEX → swap → come back → pay. Three extra steps that most users drop off at.
 
 **After integrating Jupiter Swap V2 ExactOut:**  
 The pay page now shows a token selector. Pick SOL, pick BONK, pick JUP. Jupiter handles the route. The merchant experience is unchanged — they still see `$125.00 received`. The payer experience went from "go swap first" to "pick your token, sign once."
 
-This is not a minor UX improvement — it's the difference between a product that requires USDC literacy and one that works for all of Solana. Jupiter's ExactOut mode is directly responsible for making Settlix usable for non-USDC native users.
+This is not a minor UX improvement — it's the difference between a product that requires USDC literacy and one that works for all of Solana. Jupiter's ExactOut mode is directly responsible for making SetL iT usable for non-USDC native users.
 
 ---
 
@@ -56,7 +56,7 @@ The server is the integration point for Jupiter in both directions — no Jupite
 
 ### The ExactOut Order — with `receiver` routing funds to the merchant
 
-The core Jupiter call. The `receiver` parameter is what makes this non-custodial: the output token routes directly to the merchant's wallet without touching Settlix infrastructure.
+The core Jupiter call. The `receiver` parameter is what makes this non-custodial: the output token routes directly to the merchant's wallet without touching SetL iT infrastructure.
 
 ```ts
 // lib/solana/jupiter.ts
@@ -150,7 +150,7 @@ The `isDirect` flag propagates to the frontend, which routes the signed transact
 
 Recurring billing is the most architecturally complex part of the integration. It doesn't use Jupiter at all — subscriptions are settled in the plan's native token, so no swap is needed — but it demonstrates the depth of the on-chain work.
 
-On subscribe, the subscriber signs a transaction that does two things: delegates a spending allowance to a server-held relayer keypair, and attaches a `settlix:sub:<planId>` memo for auditability:
+On subscribe, the subscriber signs a transaction that does two things: delegates a spending allowance to a server-held relayer keypair, and attaches a `setlit:sub:<planId>` memo for auditability:
 
 ```ts
 // lib/solana/subscriptionTxBuilder.ts — buildSubscriptionAuthorizationTx
@@ -162,7 +162,7 @@ const instructions = [
   createApproveCheckedInstruction(subscriberAta, settlementMint, relayer, subscriber, delegatedAmount, mintDecimals),
   new TransactionInstruction({
     programId: new PublicKey(MEMO_PROGRAM_ID),
-    data: Buffer.from(`settlix:sub:${planId}`, 'utf-8'),
+    data: Buffer.from(`setlit:sub:${planId}`, 'utf-8'),
   }),
 ]
 ```
@@ -189,7 +189,7 @@ const instructions = [
   ),
   new TransactionInstruction({
     programId: new PublicKey(MEMO_PROGRAM_ID),
-    data: Buffer.from(`settlix:renewal:${subscriptionId}`, 'utf-8'),
+    data: Buffer.from(`setlit:renewal:${subscriptionId}`, 'utf-8'),
   }),
 ]
 
@@ -240,7 +240,7 @@ Worth calling this out clearly because it's not a minor doc gap.
 
 The `/order` parameter table at [developers.jup.ag/docs/api-reference/swap/order](https://developers.jup.ag/docs/api-reference/swap/order) says, verbatim: _"Swap mode. Currently only `ExactIn` is supported."_
 
-Settlix runs on ExactOut. It's live on mainnet, processing real payments. The Jupiter AI chat told me to use ExactOut — I described my use case, it told me that's the right mode, I built on it. That guidance was correct. But the written docs tell anyone who reads them that ExactOut doesn't exist.
+SetL iT runs on ExactOut. It's live on mainnet, processing real payments. The Jupiter AI chat told me to use ExactOut — I described my use case, it told me that's the right mode, I built on it. That guidance was correct. But the written docs tell anyone who reads them that ExactOut doesn't exist.
 
 If I hadn't opened the chat first, I'd have read that one line, assumed ExactOut wasn't an option, and built something completely different. Any builder coming in through the docs — not the AI — would do the same. The entire payment processor use case on Jupiter depends on ExactOut. It needs to be in the docs.
 
@@ -339,7 +339,7 @@ The docs tell you what a parameter does. The chat tells you whether it's actuall
 
 The clearest example — and this one is worth flagging separately: the written docs for `/order` say *"Swap mode. Currently only ExactIn is supported."* ExactOut isn't listed as an option. I asked the chat about my use case — merchant receives exact USDC, payer pays in any token — and it told me directly: use ExactOut, it works, it's the right mode for this. ExactIn is for swap UIs where the user controls what they put in; ExactOut is for when the receiver's amount has to be exact.
 
-That guidance was correct. Settlix runs on ExactOut, live on mainnet. But any builder who reads the docs instead of asking the chat would conclude ExactOut doesn't exist and build something else. The chat knew something the docs didn't say.
+That guidance was correct. SetL iT runs on ExactOut, live on mainnet. But any builder who reads the docs instead of asking the chat would conclude ExactOut doesn't exist and build something else. The chat knew something the docs didn't say.
 
 A few other places where it saved me real time:
 
@@ -403,8 +403,8 @@ I didn't find one — so I wrote my own typed wrapper around the REST API. It's 
 
 ## Summary
 
-ExactOut works. The API is fast, reliable, and the non-custodial settlement model is genuinely well-designed — the merchant receives exact USDC directly in their wallet without Settlix ever touching the funds. That's a hard thing to build cleanly and Jupiter's implementation handles it well.
+ExactOut works. The API is fast, reliable, and the non-custodial settlement model is genuinely well-designed — the merchant receives exact USDC directly in their wallet without SetL iT ever touching the funds. That's a hard thing to build cleanly and Jupiter's implementation handles it well.
 
-The pain points I hit were almost all documentation gaps, not API problems. The `transaction` failure states, the same-mint case, the `receiver` context, the `lastValidBlockHeight` field — these are all things a builder figures out through trial and error when they should just be in the docs. The biggest one is ExactOut itself: the docs say it's not supported, it actually is, and it's the entire reason a payment product like Settlix is possible on Jupiter.
+The pain points I hit were almost all documentation gaps, not API problems. The `transaction` failure states, the same-mint case, the `receiver` context, the `lastValidBlockHeight` field — these are all things a builder figures out through trial and error when they should just be in the docs. The biggest one is ExactOut itself: the docs say it's not supported, it actually is, and it's the entire reason a payment product like SetL iT is possible on Jupiter.
 
 The AI chat saved the integration. Genuinely. If I'd gone through the written docs alone I'd have given up on ExactOut in the first 20 minutes. That's a good problem for Jupiter to have — the chat is that good — but it also means builders who don't find the chat are starting with a broken map.

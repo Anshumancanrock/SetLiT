@@ -63,7 +63,7 @@ function baseLayout(title: string, body: string): string {
         <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
           <tr>
             <td style="background-color:#09090b;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;">
-              <p style="margin:0;font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">Settlix</p>
+              <p style="margin:0;font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">SetL iT</p>
               <p style="margin:8px 0 0;font-size:13px;color:#71717a;letter-spacing:0.5px;text-transform:uppercase;">Subscription</p>
             </td>
           </tr>
@@ -74,7 +74,7 @@ function baseLayout(title: string, body: string): string {
           </tr>
           <tr>
             <td style="background-color:#f9fafb;border:1px solid #e5e7eb;border-top:0;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">
-              <p style="margin:0;font-size:12px;color:#9ca3af;">Powered by <strong style="color:#6b7280;">Settlix</strong> · Solana payments infrastructure</p>
+              <p style="margin:0;font-size:12px;color:#9ca3af;">Powered by <strong style="color:#6b7280;">SetL iT</strong> · Solana payments infrastructure</p>
             </td>
           </tr>
         </table>

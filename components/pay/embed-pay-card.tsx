@@ -19,7 +19,7 @@ interface EmbedPayCardProps {
 export function EmbedPayCard({ linkId, metadata }: EmbedPayCardProps) {
   useEffect(() => {
     const send = () => {
-      postToParent({ type: 'settlix:resize', height: document.documentElement.scrollHeight })
+      postToParent({ type: 'setlit:resize', height: document.documentElement.scrollHeight })
     }
 
     send()
@@ -30,7 +30,7 @@ export function EmbedPayCard({ linkId, metadata }: EmbedPayCardProps) {
 
   const handlePaid = useCallback(
     (txSignature: string) => {
-      postToParent({ type: 'settlix:paid', txSignature, metadata: metadata ?? null })
+      postToParent({ type: 'setlit:paid', txSignature, metadata: metadata ?? null })
     },
     [metadata],
   )

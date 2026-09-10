@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const { nonce } = await apiClient.get<{ nonce: string }>('/api/auth/nonce')
 
-    const message = `Sign in to Settlix:\n${nonce}`
+    const message = `Sign in to SetL iT:\n${nonce}`
     const msgBytes = new TextEncoder().encode(message)
     const sigBytes = await signMessage(msgBytes)
     const signature = Buffer.from(sigBytes).toString('base64')

@@ -35,9 +35,9 @@ export default async function SubscribePage({ params }: Props) {
 export async function generateMetadata({ params }: Props) {
   const { id } = await params
   const plan = await getSubscriptionPlanById(id).catch(() => null)
-  const title = plan?.title ? `${plan.title} · Settlix` : 'Subscribe · Settlix'
+  const title = plan?.title ? `${plan.title} · SetL iT` : 'Subscribe · SetL iT'
   const description = plan
-    ? `Subscribe for ${Number(plan.amount).toFixed(2)} ${plan.token.slice(0, 6)} / ${plan.interval} via Settlix.`
-    : 'Recurring subscription via Settlix.'
+    ? `Subscribe for ${Number(plan.amount).toFixed(2)} ${plan.token.slice(0, 6)} / ${plan.interval} via SetL iT.`
+    : 'Recurring subscription via SetL iT.'
   return { title, description, openGraph: { title, description } }
 }

@@ -31,7 +31,7 @@ export async function deliverPaymentWebhook(config: {
   }
 
   if (config.webhookSecret) {
-    headers['X-Settlix-Signature'] = `sha256=${createHmac('sha256', config.webhookSecret).update(body).digest('hex')}`
+    headers['X-SetLiT-Signature'] = `sha256=${createHmac('sha256', config.webhookSecret).update(body).digest('hex')}`
   }
 
   try {

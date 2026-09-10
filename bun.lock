@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "settlix",
+      "name": "setl-it",
       "dependencies": {
         "@phosphor-icons/react": "^2.1.10",
         "@prisma/adapter-pg": "^7.7.0",

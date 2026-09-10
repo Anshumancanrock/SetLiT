@@ -23,16 +23,16 @@ export async function generateMetadata({ params }: Props) {
   const parsedId = paymentLinkId.safeParse(id)
 
   if (!parsedId.success) {
-    return { title: 'Pay · Settlix' }
+    return { title: 'Pay · SetL iT' }
   }
 
   const link = await getPaymentLinkById(parsedId.data).catch(() => null)
-  const title = link?.title ? `${link.title} · Settlix` : 'Pay · Settlix'
+  const title = link?.title ? `${link.title} · SetL iT` : 'Pay · SetL iT'
   const description =
     link?.description ??
     `Pay ${
       link ? Number(link.amount).toFixed(2) + ' USDC' : ''
-    } via Settlix — pay with any Solana token, settled instantly in USDC.`
+    } via SetL iT — pay with any Solana token, settled instantly in USDC.`
 
   return { title, description, openGraph: { title, description } }
 }

@@ -2,22 +2,22 @@ export function makeSnippets(origin: string) {
   return {
     loadScript: `<script src="${origin}/checkout.js"></script>`,
 
-    basicButton: `<button onclick="Settlix.open({ linkId: 'YOUR_LINK_ID' })">
-  Pay with Settlix
+    basicButton: `<button onclick="SetLiT.open({ linkId: 'YOUR_LINK_ID' })">
+  Pay with SetL iT
 </button>`,
 
     // ── React quick-start ──────────────────────────────────────────────────
     reactLoadScript: `<!-- public/index.html — before </body> -->
 <script src="${origin}/checkout.js"></script>`,
 
-    reactMinimal: `// Any component — call window.Settlix.open() directly
-<button onClick={() => window.Settlix.open({ linkId: 'YOUR_LINK_ID' })}>
-  Pay with Settlix
+    reactMinimal: `// Any component — call window.SetLiT.open() directly
+<button onClick={() => window.SetLiT.open({ linkId: 'YOUR_LINK_ID' })}>
+  Pay with SetL iT
 </button>`,
 
     reactInstallTypes: `# TypeScript users — one command, types become globally available
-bun add -D @settlix/types
-# or: npm install --save-dev @settlix/types`,
+bun add -D @setlit/types
+# or: npm install --save-dev @setlit/types`,
 
     // ── Next.js quick-start ────────────────────────────────────────────────
     nextjsLayout: `// app/layout.tsx — add Script once, it loads on every page
@@ -34,20 +34,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   )
 }`,
 
-    nextjsMinimal: `'use client'  // window.Settlix only exists in the browser
+    nextjsMinimal: `'use client'  // window.SetLiT only exists in the browser
 
 // Any Client Component
 export function PayButton() {
   return (
-    <button onClick={() => window.Settlix.open({ linkId: 'YOUR_LINK_ID' })}>
-      Pay with Settlix
+    <button onClick={() => window.SetLiT.open({ linkId: 'YOUR_LINK_ID' })}>
+      Pay with SetL iT
     </button>
   )
 }`,
 
     nextjsInstallTypes: `# TypeScript users — one command, types become globally available
-bun add -D @settlix/types
-# or: npm install --save-dev @settlix/types`,
+bun add -D @setlit/types
+# or: npm install --save-dev @setlit/types`,
 
     // ── Optional: reusable pre-styled component (React + Next.js) ─────────
     reusableComponent: `// Drop this anywhere in your project — no extra dependencies
@@ -70,18 +70,18 @@ interface Props {
   onClose?:   (metadata: Record<string, unknown> | null) => void
 }
 
-export function SettlixButton({ linkId, size = 'md', label = '⚡ Pay with Settlix', metadata, onSuccess, onClose }: Props) {
+export function SetLiTButton({ linkId, size = 'md', label = '⚡ Pay with SetL iT', metadata, onSuccess, onClose }: Props) {
   return (
     <button
       style={STYLES[size]}
-      onClick={() => window.Settlix.open({ linkId, metadata, onSuccess, onClose })}
+      onClick={() => window.SetLiT.open({ linkId, metadata, onSuccess, onClose })}
     >
       {label}
     </button>
   )
 }`,
 
-    fullApi: `Settlix.open({
+    fullApi: `SetLiT.open({
   linkId: 'YOUR_LINK_ID',
 
   // Optional — pass any JSON you want echoed back
@@ -103,13 +103,13 @@ export function SettlixButton({ linkId, size = 'md', label = '⚡ Pay with Settl
 })
 
 // Close programmatically (e.g. from your own UI)
-Settlix.close()`,
+SetLiT.close()`,
 
     metadataExplained: `// Without metadata — you know SOMEONE paid, not WHO or WHAT ORDER
-Settlix.open({ linkId: 'abc' })
+SetLiT.open({ linkId: 'abc' })
 
 // With metadata — you get back exactly what you put in
-Settlix.open({
+SetLiT.open({
   linkId: 'abc',
   metadata: { orderId: 'order_789', userId: 'user_456', plan: 'pro' },
   onSuccess: function(txSignature, metadata) {
@@ -155,7 +155,7 @@ Settlix.open({
 }
 
 // All events include the signature header:
-// X-Settlix-Signature: sha256=<hmac-hex>`,
+// X-SetLiT-Signature: sha256=<hmac-hex>`,
 
     csp: `Content-Security-Policy:
   script-src  ${origin};
@@ -165,7 +165,7 @@ Settlix.open({
     typescript: `/// <reference types="${origin}/checkout.d.ts" />
 // or paste this into a global.d.ts file:
 
-interface SettlixCheckout {
+interface SetLiTCheckout {
   open(opts: {
     linkId: string
     metadata?: Record<string, unknown>
@@ -176,12 +176,12 @@ interface SettlixCheckout {
 }
 
 declare global {
-  interface Window { Settlix: SettlixCheckout }
+  interface Window { SetLiT: SetLiTCheckout }
 }`,
 
     async: `<!-- Optional: queue calls made before the script loads -->
 <script>
-  window.Settlix = { _q: [], open: function(o){ this._q.push(o) } }
+  window.SetLiT = { _q: [], open: function(o){ this._q.push(o) } }
 </script>
 <script src="${origin}/checkout.js" async></script>`,
   }
@@ -196,7 +196,7 @@ curl -X POST ${origin}/api/links \\
   -d '{ "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "amount": "25", "title": "Order #1234" }'
 
 # Then open it client-side
-Settlix.open({ linkId: "clxyz1234abcd", metadata: { orderId: "1234" } })`,
+SetLiT.open({ linkId: "clxyz1234abcd", metadata: { orderId: "1234" } })`,
 
     getKeys: `# List your API keys
 curl ${origin}/api/keys \\
@@ -255,14 +255,14 @@ curl -X PATCH ${origin}/api/webhook \\
   -H "Authorization: Bearer sk_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
-    "webhookUrl":    "https://yoursite.com/api/settlix-webhook",
+    "webhookUrl":    "https://yoursite.com/api/setlit-webhook",
     "webhookSecret": "your-32-char-secret"
   }'`,
 
     verifyWebhook: `// Node.js — verify incoming webhook
 const crypto = require('crypto')
 
-function verifySettlixWebhook(rawBody, signature, secret) {
+function verifySetLiTWebhook(rawBody, signature, secret) {
   const expected = 'sha256=' +
     crypto.createHmac('sha256', secret).update(rawBody).digest('hex')
   return crypto.timingSafeEqual(

@@ -1,4 +1,4 @@
-interface SettlixCheckout {
+interface SetLiTCheckout {
   open(opts: {
     linkId: string
     metadata?: Record<string, unknown>
@@ -10,7 +10,7 @@ interface SettlixCheckout {
 
 declare global {
   interface Window {
-    Settlix: SettlixCheckout
+    SetLiT: SetLiTCheckout
   }
 }
 

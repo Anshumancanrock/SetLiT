@@ -1,4 +1,4 @@
-# Settlix — Feature Backlog
+# SetL iT — Feature Backlog
 
 Sources: competitive landscape analysis (April 2026) + codebase audit. Previous Colosseum Copilot
 research (5,400+ hackathon projects) validated the Jupiter multi-token swap as a genuine differentiator
@@ -23,7 +23,7 @@ research (5,400+ hackathon projects) validated the Jupiter multi-token swap as a
 
 ### 1. Webhooks on Payment Confirmation
 
-**Why:** Turns Settlix from a UI tool into B2B infrastructure. When a payment lands, merchants
+**Why:** Turns SetL iT from a UI tool into B2B infrastructure. When a payment lands, merchants
 need to trigger fulfillment — send an email, grant Discord access, update a database, ship an
 order. Right now they have SSE (browser-only). Webhooks work server-to-server, always. No
 Solana-native non-custodial payment tool does this today. Helio doesn't. SpherePay doesn't have
@@ -58,7 +58,7 @@ model PaymentLink {
    {
      ;(linkId, txSignature, inputToken, inputAmount, outputAmount, userWallet, timestamp)
    }
-   // header: X-Settlix-Signature: sha256=<HMAC-SHA256(secret, JSON.stringify(payload))>
+   // header: X-SetLiT-Signature: sha256=<HMAC-SHA256(secret, JSON.stringify(payload))>
    ```
 3. Use Node's built-in `crypto.createHmac('sha256', secret)` — no extra deps.
 4. In `CreateLinkDialog`, add a collapsible "Developer" section (same collapse pattern as Details)
@@ -73,7 +73,7 @@ model PaymentLink {
 
 **Why:** Enables entirely new use cases with a tiny schema change. Limited-seat ticket sales,
 time-limited flash offers, one-time invoice links, beta access gates. Nobody in the Solana
-payment space has this built natively. It also makes Settlix more trustworthy — merchants can
+payment space has this built natively. It also makes SetL iT more trustworthy — merchants can
 create a link knowing it can't be reused forever.
 
 **Schema changes** (`prisma/schema.prisma`):
@@ -117,9 +117,9 @@ model PaymentLink {
 ### 3. Embeddable Checkout Widget (JS Snippet)
 
 **Why:** Currently paying requires navigating to `settlix.itssvk.dev/pay/[id]`. An embed lets merchants
-drop Settlix checkout into their own site with one script tag — like Stripe Checkout. This is the
+drop SetL iT checkout into their own site with one script tag — like Stripe Checkout. This is the
 single biggest distribution unlock. Buyers never leave the merchant's site. Conversion improves.
-No Solana-native non-custodial checkout has this. This makes Settlix viable for any website,
+No Solana-native non-custodial checkout has this. This makes SetL iT viable for any website,
 not just people who know how to share a link.
 
 **No schema changes needed.**
@@ -139,21 +139,21 @@ not just people who know how to share a link.
 1. Create `app/(pay)/embed/[id]/page.tsx` — same pay card as `/pay/[id]` but:
    - No navbar, no outer padding, transparent background
    - Adds `X-Frame-Options: SAMEORIGIN` removed (allow iframe embedding)
-   - Posts a `postMessage` to parent on payment success: `{ type: 'settlix:paid', txSignature }`
+   - Posts a `postMessage` to parent on payment success: `{ type: 'setlit:paid', txSignature }`
 2. `public/checkout.js` — ~80 lines of vanilla JS:
    ```js
-   window.Settlix = {
+   window.SetLiT = {
      open({ linkId, onSuccess, onClose }) {
        // creates a full-screen overlay div
        // appends an <iframe src="https://settlix.itssvk.dev/embed/{linkId}">
-       // listens for postMessage 'settlix:paid' → calls onSuccess(txSig), removes overlay
+       // listens for postMessage 'setlit:paid' → calls onSuccess(txSig), removes overlay
      },
    }
    ```
 3. Merchant usage:
    ```html
    <script src="https://settlix.itssvk.dev/checkout.js"></script>
-   <button onclick="Settlix.open({ linkId: 'abc123' })">Pay with Settlix</button>
+   <button onclick="SetLiT.open({ linkId: 'abc123' })">Pay with SetL iT</button>
    ```
 4. In the dashboard, add a "Embed" button on each link row that shows a copy-paste snippet.
 
@@ -166,10 +166,10 @@ not just people who know how to share a link.
 ### 4. API Key System (Headless Access)
 
 **Why:** Right now every API call requires a session cookie (wallet auth). No programmatic
-access. An API key system lets merchants integrate Settlix into their own backend — create links
+access. An API key system lets merchants integrate SetL iT into their own backend — create links
 automatically, poll payment status, receive webhooks — without opening a browser. This turns
-Settlix into infrastructure other apps build on. SpherePay is API-only; Helio is UI-only.
-Settlix can be both.
+SetL iT into infrastructure other apps build on. SpherePay is API-only; Helio is UI-only.
+SetL iT can be both.
 
 **Schema changes** (`prisma/schema.prisma`):
 
@@ -273,7 +273,7 @@ Total amount is computed from line items (`SUM(quantity * unitPrice)`), not stor
 **Why:** The biggest unsolved problem in Solana payments. SpherePay announced it but hasn't
 shipped a clean consumer-facing product. Streamflow does token streaming (continuous drip), not
 invoice-style recurring billing. True subscription billing — authorize once, pull monthly — would
-make Settlix uniquely powerful combined with your existing revenue split (subscribers
+make SetL iT uniquely powerful combined with your existing revenue split (subscribers
 automatically split across collaborators every cycle). This is a long-term moat feature.
 
 **Complexity:** Requires a Solana program. The existing `program/` directory is a starting point.
@@ -309,7 +309,7 @@ model Subscription {
 
 **On-chain design (Solana program):**
 
-- Subscriber signs a `Delegate` instruction once, granting the Settlix program authority to pull
+- Subscriber signs a `Delegate` instruction once, granting the SetL iT program authority to pull
   up to `amount` per `intervalDays` from their token account.
 - A server-side crank job queries `Subscription` where `nextChargeAt <= now() AND active = true`,
   builds and submits the pull transaction, records in `PaymentExecution`, advances `nextChargeAt`.

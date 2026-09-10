@@ -7,7 +7,7 @@ import { handleApi } from '@/lib/api/errors'
  *
  * Issues a one-time nonce (UUID) valid for 5 minutes.
  * The client must sign the exact string:
- *   "Sign in to Settlix:\n<nonce>"
+ *   "Sign in to SetL iT:\n<nonce>"
  * using their connected Solana wallet, then POST the result to /api/auth/login.
  */
 export async function GET() {

@@ -19,7 +19,7 @@ export default function ApiKeysPage() {
           <span>
             <h1 className='text-2xl font-bold text-foreground'>API Keys</h1>
             <p className='mt-1 text-sm text-muted-foreground'>
-              Manage keys for authenticating requests to the Settlix REST API.
+              Manage keys for authenticating requests to the SetL iT REST API.
             </p>
           </span>
           <CreateKeyDialog onCreated={refresh} />

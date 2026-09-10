@@ -26,7 +26,7 @@ export function LiveDemo() {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   useEffect(() => {
-    const saved = sessionStorage.getItem('settlix_test_link_id')
+    const saved = sessionStorage.getItem('setlit_test_link_id')
     if (saved) setLinkId(saved)
   }, [])
 
@@ -37,9 +37,9 @@ export function LiveDemo() {
   function openCheckout() {
     const id = linkId.trim()
     if (!id) return
-    sessionStorage.setItem('settlix_test_link_id', id)
+    sessionStorage.setItem('setlit_test_link_id', id)
     setActiveId(id)
-    push({ type: 'open', msg: `Settlix.open({ linkId: "${id}" })`, time: ts() })
+    push({ type: 'open', msg: `SetLiT.open({ linkId: "${id}" })`, time: ts() })
   }
 
   const handlePaid = useCallback((txSignature: string) => {

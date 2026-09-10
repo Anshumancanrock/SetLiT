@@ -6,20 +6,20 @@ import { HelpCircle, Plus } from 'lucide-react'
 
 const faqs = [
   {
-    q: 'What exactly is Settlix?',
-    a: 'Settlix is a non-custodial crypto payments platform built on Solana. It lets merchants create payment links, invoices, and recurring subscriptions — your buyers pay in any Solana token, and you receive USDC directly in your wallet. No bank account, no intermediary, no custody.',
+    q: 'What exactly is SetL iT?',
+    a: 'SetL iT is a non-custodial crypto payments platform built on Solana. It lets merchants create payment links, invoices, and recurring subscriptions — your buyers pay in any Solana token, and you receive USDC directly in your wallet. No bank account, no intermediary, no custody.',
   },
   {
-    q: 'What can I create on Settlix?',
+    q: 'What can I create on SetL iT?',
     a: "Four things: shareable payment links (one-time or open-ended), professional invoices with due dates, recurring subscriptions with configurable billing cycles, and an embeddable checkout widget you can drop into any website with a single <script> tag. There's also a REST API if you want full programmatic control.",
   },
   {
     q: 'What tokens can my buyers pay with?',
-    a: 'Any SPL token — SOL, BONK, JUP, WIF, USDT, and thousands more. Settlix uses Jupiter to find the best swap route at checkout, so buyers pay whatever they have and you receive the exact USDC amount you requested. No slippage risk on your end.',
+    a: 'Any SPL token — SOL, BONK, JUP, WIF, USDT, and thousands more. SetL iT uses Jupiter to find the best swap route at checkout, so buyers pay whatever they have and you receive the exact USDC amount you requested. No slippage risk on your end.',
   },
   {
     q: 'Do you ever hold my funds?',
-    a: "Never. Every payment is an atomic on-chain transaction that goes directly from the buyer's wallet to yours. Settlix acts as the coordinator — it assembles the transaction, but your funds are never routed through or held by us at any point.",
+    a: "Never. Every payment is an atomic on-chain transaction that goes directly from the buyer's wallet to yours. SetL iT acts as the coordinator — it assembles the transaction, but your funds are never routed through or held by us at any point.",
   },
   {
     q: "What's the difference between a payment link, invoice, and subscription?",
@@ -27,15 +27,15 @@ const faqs = [
   },
   {
     q: 'Can I embed checkout in my own website or app?',
-    a: "Yes. Add one <script> tag from Settlix and call Settlix.open({ linkId }) — a clean modal checkout opens inline without redirecting your users. It works on any web stack. There's also a full REST API with API key auth for backend integrations.",
+    a: "Yes. Add one <script> tag from SetL iT and call SetLiT.open({ linkId }) — a clean modal checkout opens inline without redirecting your users. It works on any web stack. There's also a full REST API with API key auth for backend integrations.",
   },
   {
-    q: 'Do I need to know how to code to use Settlix?',
+    q: 'Do I need to know how to code to use SetL iT?',
     a: "Not at all. The dashboard lets you create payment links, invoices, and subscriptions in a few clicks with no code. The embeddable checkout and REST API are there if you want to go deeper, but they're entirely optional.",
   },
   {
     q: 'Are there any fees?',
-    a: "Settlix charges no platform fee — you keep 100% of every payment. The only costs are standard Solana network transaction fees (fractions of a cent) and Jupiter's swap fee when a currency conversion is involved. There's no monthly subscription and no percentage cut.",
+    a: "SetL iT charges no platform fee — you keep 100% of every payment. The only costs are standard Solana network transaction fees (fractions of a cent) and Jupiter's swap fee when a currency conversion is involved. There's no monthly subscription and no percentage cut.",
   },
 ]
 

@@ -167,7 +167,7 @@ function WebhookModalPanel({
                       setWebhookUrlTested(e.target.value === (initialWebhookUrl ?? ''))
                       setError('')
                     }}
-                    placeholder='https://yourdomain.com/settlix/webhook'
+                    placeholder='https://yourdomain.com/setlit/webhook'
                     className='flex-1 bg-transparent px-3 font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground min-w-0'
                   />
                   <Button
@@ -250,7 +250,7 @@ function WebhookModalPanel({
                 <p className='text-[11px] leading-relaxed text-muted-foreground'>
                   {hasWebhookSecret
                     ? 'A signing secret is already stored. Leave blank to keep it, or generate a new one to replace it.'
-                    : 'If set, we include X-Settlix-Signature: sha256=… so your server can verify the payload.'}
+                    : 'If set, we include X-SetLiT-Signature: sha256=… so your server can verify the payload.'}
                 </p>
               </div>
             </div>

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props) {
     .findUnique({ where: { id: merchantId }, select: { wallet: true } })
     .catch(() => null)
   const short = merchant ? `${merchant.wallet.slice(0, 4)}…${merchant.wallet.slice(-4)}` : 'Merchant'
-  return { title: `Pay ${short} · Settlix` }
+  return { title: `Pay ${short} · SetL iT` }
 }
 
 export default async function PersonalPayPage({ params }: Props) {

@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { useTheme } from 'next-themes'
-import { SettlixLogoConcise } from '@/components/shared/settlix-logo'
+import { SetLiTLogoConcise } from '@/components/shared/setlit-logo'
 import { useAuth } from '@/components/auth/auth-context'
 import { BookOpen, LogOut, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -41,7 +41,7 @@ export function DashboardTopbar() {
 
       {/* Logo — mobile only, hidden on desktop where sidebar shows it */}
       <Link href='/dashboard' className='group flex md:hidden items-center gap-1.5 mr-auto'>
-        <SettlixLogoConcise className='h-6 w-6 transition-transform duration-500 group-hover:rotate-180' />
+        <SetLiTLogoConcise className='h-6 w-6 transition-transform duration-500 group-hover:rotate-180' />
         <span className='text-base font-bold tracking-tight'>
           Settl<span className='text-primary'>i</span>X
         </span>

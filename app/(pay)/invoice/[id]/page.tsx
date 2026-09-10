@@ -52,6 +52,6 @@ export default async function InvoicePage({ params }: Props) {
 export async function generateMetadata({ params }: Props) {
   const { id } = await params
   const invoice = await getInvoiceById(id).catch(() => null)
-  const title = invoice?.clientName ? `Invoice · ${invoice.clientName} · Settlix` : 'Invoice · Settlix'
+  const title = invoice?.clientName ? `Invoice · ${invoice.clientName} · SetL iT` : 'Invoice · SetL iT'
   return { title }
 }

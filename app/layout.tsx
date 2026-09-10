@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: 'Settlix — Accept Any Token. Receive USDC.',
-    template: '%s | Settlix',
+    default: 'SetL iT — Accept Any Token. Receive USDC.',
+    template: '%s | SetL iT',
   },
 
   description:
-    'Settlix is a non-custodial Solana payments platform. Accept SOL, BONK, or any SPL token — your buyers pay in any token, you receive USDC instantly. Create payment links, invoices, subscriptions, and embed a one-line checkout on any site.',
+    'SetL iT is a non-custodial Solana payments platform. Accept SOL, BONK, or any SPL token — your buyers pay in any token, you receive USDC instantly. Create payment links, invoices, subscriptions, and embed a one-line checkout on any site.',
 
   keywords: [
     'Solana payments',
@@ -47,23 +47,23 @@ export const metadata: Metadata = {
 
   authors: [{ name: 'Anshuman', url: 'https://x.com/0xAnshuman' }],
   creator: 'Anshuman',
-  publisher: 'Settlix',
+  publisher: 'SetL iT',
   category: 'Finance',
 
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: BASE_URL,
-    siteName: 'Settlix',
-    title: 'Settlix — Accept Any Token. Receive USDC.',
+    siteName: 'SetL iT',
+    title: 'SetL iT — Accept Any Token. Receive USDC.',
     description:
       'Non-custodial Solana payments. Create payment links, invoices, subscriptions, and embed a checkout — your buyers pay in any token, you receive USDC instantly.',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Settlix — Accept any token. Receive USDC.' }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'SetL iT — Accept any token. Receive USDC.' }],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Settlix — Accept Any Token. Receive USDC.',
+    title: 'SetL iT — Accept Any Token. Receive USDC.',
     description:
       'Non-custodial Solana payments. Accept SOL, BONK, or any SPL token. You receive USDC instantly. Payment links, invoices, subscriptions, checkout.',
     images: ['/opengraph-image'],

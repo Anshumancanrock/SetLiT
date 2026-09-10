@@ -56,7 +56,7 @@ The app uses three Next.js route groups with separate layouts:
 
 Two auth layers share the same `requireAuth(req)` call in `lib/auth/require-auth.ts`:
 
-1. **Session cookie** — Wallet-signature flow: client requests a nonce from `/api/auth/nonce`, signs it with their Solana wallet, POSTs to `/api/auth/login`. Server verifies the Ed25519 signature (`lib/auth/verify-signature.ts`), issues a 24-hour `HS256` JWT (`jose`) stored as an httpOnly cookie (`settlix_session`).
+1. **Session cookie** — Wallet-signature flow: client requests a nonce from `/api/auth/nonce`, signs it with their Solana wallet, POSTs to `/api/auth/login`. Server verifies the Ed25519 signature (`lib/auth/verify-signature.ts`), issues a 24-hour `HS256` JWT (`jose`) stored as an httpOnly cookie (`setlit_session`).
 2. **Bearer API key** — `Authorization: Bearer <key>`. Key is SHA-256 hashed and looked up in `ApiKey` table. Takes priority over session cookie.
 
 **Which to use:**
@@ -113,14 +113,14 @@ Prisma 7 with the `@prisma/adapter-pg` driver (PostgreSQL). The generated client
 Business logic lives in `lib/services/`. Route handlers are thin — they validate input (Zod schemas in `lib/validation/`), call a service, and return a response. Key services:
 
 - `payment-submit.service.ts` — on-chain tx verification + `PaymentExecution` upsert, webhook delivery, email receipt
-- `payment-webhook.service.ts` — HMAC-SHA256 signed webhook delivery (`X-Settlix-Signature: sha256=...`)
+- `payment-webhook.service.ts` — HMAC-SHA256 signed webhook delivery (`X-SetLiT-Signature: sha256=...`)
 - `distribute.service.ts` — batch split payment distribution
 - `subscription-renewal.service.ts` — cron-driven renewal loop
 - `jupiter-quote.service.ts` / `jupiter-order.service.ts` — thin wrappers around `lib/solana/jupiter.ts`
 
 ### Embeddable Checkout Widget
 
-`public/checkout.js` is a self-contained IIFE. It auto-detects the Settlix origin from its own `src` attribute, opens an iframe pointing to `/embed/[linkId]`, and communicates with the parent page via `postMessage`. API: `Settlix.open({ linkId, metadata, onSuccess, onClose })` / `Settlix.close()`.
+`public/checkout.js` is a self-contained IIFE. It auto-detects the SetL iT origin from its own `src` attribute, opens an iframe pointing to `/embed/[linkId]`, and communicates with the parent page via `postMessage`. API: `SetLiT.open({ linkId, metadata, onSuccess, onClose })` / `SetLiT.close()`.
 
 ### Settlement Token
 
