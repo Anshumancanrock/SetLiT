@@ -80,7 +80,7 @@ export function FaqSection() {
           >
             Still have questions? Reach out on{' '}
             <a
-              href='https://x.com/ShouvikMohanta'
+              href='https://x.com/0xAnshuman'
               target='_blank'
               rel='noopener noreferrer'
               className='text-primary underline-offset-4 transition-all duration-200 hover:underline'

@@ -1,11 +1,10 @@
 # Jupiter Developer Platform — DX Report
 
 **Project:** Settlix — Non-custodial payment infrastructure on Solana  
-**Builder:** Shouvik Mohanta  
-**Developer Platform email:** connectshouvik@gmail.com  
+**Builder:** Anshuman  
 **Integration:** Swap V2 (`/order` ExactOut + `/execute`)  
 **Stack:** Next.js 16, Prisma, `@solana/web3.js`, `@solana/spl-token`  
-**Repo:** [github.com/itssvk/settlix](https://github.com/itssvk/settlix)  
+**Repo:** [github.com/anshumancanrock/settlix](https://github.com/anshumancanrock/settlix)  
 **Live:** [settlix.itssvk.dev](https://settlix.itssvk.dev)
 
 ---

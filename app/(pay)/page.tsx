@@ -30,8 +30,8 @@ const jsonLd = {
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: {
     '@type': 'Person',
-    name: 'Shouvik Mohanta',
-    url: 'https://x.com/ShouvikMohanta',
+    name: 'Anshuman',
+    url: 'https://x.com/0xAnshuman',
   },
   keywords:
     'Solana payments, crypto payment links, accept any token, USDC settlement, non-custodial, crypto invoicing, crypto subscriptions, Solana checkout, SPL token payments',

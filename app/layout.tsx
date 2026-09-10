@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     'embeddable crypto checkout',
   ],
 
-  authors: [{ name: 'Shouvik Mohanta', url: 'https://x.com/ShouvikMohanta' }],
-  creator: 'Shouvik Mohanta',
+  authors: [{ name: 'Anshuman', url: 'https://x.com/0xAnshuman' }],
+  creator: 'Anshuman',
   publisher: 'Settlix',
   category: 'Finance',
 
@@ -67,8 +67,8 @@ export const metadata: Metadata = {
     description:
       'Non-custodial Solana payments. Accept SOL, BONK, or any SPL token. You receive USDC instantly. Payment links, invoices, subscriptions, checkout.',
     images: ['/opengraph-image'],
-    creator: '@ShouvikMohanta',
-    site: '@ShouvikMohanta',
+    creator: '@0xAnshuman',
+    site: '@0xAnshuman',
   },
 
   robots: {
