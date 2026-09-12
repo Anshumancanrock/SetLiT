@@ -7,6 +7,7 @@ import { X, Download, Copy, Check, QrCode } from 'lucide-react'
 import { QRCodeCanvas } from 'qrcode.react'
 import { Button } from '@/components/ui/button'
 import { copyText } from '@/lib/utils'
+import { SITE_HOST } from '@/lib/site-url'
 
 interface QRModalProps {
   open: boolean
@@ -55,11 +56,11 @@ export function QRModal({ open, onClose, payUrl, label }: QRModalProps) {
     // QR code
     ctx.drawImage(canvas, pad, pad)
 
-    // "settlix.itssvk.dev" label at bottom
+    // Site host label at bottom
     ctx.fillStyle = '#94a3b8'
     ctx.font = `500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`
     ctx.textAlign = 'center'
-    ctx.fillText('settlix.itssvk.dev', out.width / 2, canvas.height + pad * 2 + labelH / 2 + 4)
+    ctx.fillText(SITE_HOST, out.width / 2, canvas.height + pad * 2 + labelH / 2 + 4)
 
     const link = document.createElement('a')
     link.download = `setlit-qr-${Date.now()}.png`

@@ -5,7 +5,6 @@
 **Integration:** Swap V2 (`/order` ExactOut + `/execute`)  
 **Stack:** Next.js 16, Prisma, `@solana/web3.js`, `@solana/spl-token`  
 **Repo:** [github.com/anshumancanrock/settlix](https://github.com/anshumancanrock/settlix)  
-**Live:** [settlix.itssvk.dev](https://settlix.itssvk.dev)
 
 ---
 

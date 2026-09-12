@@ -1,7 +1,7 @@
 /* SetL iT Checkout Widget v1
  *
  * Usage:
- *   <script src="https://settlix.itssvk.dev/checkout.js"></script>
+ *   <script src="https://your-domain.com/checkout.js"></script>
  *   <button onclick="SetLiT.open({ linkId: 'abc123' })">Pay Now</button>
  *
  * Full API:

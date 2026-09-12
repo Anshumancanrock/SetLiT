@@ -116,7 +116,7 @@ model PaymentLink {
 
 ### 3. Embeddable Checkout Widget (JS Snippet)
 
-**Why:** Currently paying requires navigating to `settlix.itssvk.dev/pay/[id]`. An embed lets merchants
+**Why:** Currently paying requires navigating to `your-domain.com/pay/[id]`. An embed lets merchants
 drop SetL iT checkout into their own site with one script tag — like Stripe Checkout. This is the
 single biggest distribution unlock. Buyers never leave the merchant's site. Conversion improves.
 No Solana-native non-custodial checkout has this. This makes SetL iT viable for any website,
@@ -145,14 +145,14 @@ not just people who know how to share a link.
    window.SetLiT = {
      open({ linkId, onSuccess, onClose }) {
        // creates a full-screen overlay div
-       // appends an <iframe src="https://settlix.itssvk.dev/embed/{linkId}">
+       // appends an <iframe src="https://your-domain.com/embed/{linkId}">
        // listens for postMessage 'setlit:paid' → calls onSuccess(txSig), removes overlay
      },
    }
    ```
 3. Merchant usage:
    ```html
-   <script src="https://settlix.itssvk.dev/checkout.js"></script>
+   <script src="https://your-domain.com/checkout.js"></script>
    <button onclick="SetLiT.open({ linkId: 'abc123' })">Pay with SetL iT</button>
    ```
 4. In the dashboard, add a "Embed" button on each link row that shows a copy-paste snippet.

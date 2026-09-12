@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { SITE_HOST } from '@/lib/site-url'
 
 export const runtime = 'edge'
 export const alt = 'SetL iT — Accept any token. Receive USDC.'
@@ -138,7 +139,7 @@ export default function OGImage() {
             flexShrink: 0,
           }}
         />
-        settlix.itssvk.dev
+        {SITE_HOST}
       </div>
     </div>,
     { width: 1200, height: 630 },

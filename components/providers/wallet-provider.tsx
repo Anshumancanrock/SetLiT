@@ -12,10 +12,12 @@ import {
 import '@solana/wallet-adapter-react-ui/styles.css'
 import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets'
 
+import { SITE_URL } from '@/lib/site-url'
+
 const isDev = process.env.NODE_ENV === 'development'
 
 const RPC_ENDPOINT = process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.trim() || 'https://api.mainnet-beta.solana.com'
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'https://settlix.itssvk.dev'
+const DOMAIN = SITE_URL
 
 export function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
   const wallets = useMemo(

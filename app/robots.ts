@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next'
 
+import { SITE_URL } from '@/lib/site-url'
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -9,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/dashboard/', '/api/', '/embed/', '/manage/'],
       },
     ],
-    sitemap: 'https://settlix.itssvk.dev/sitemap.xml',
-    host: 'https://settlix.itssvk.dev',
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   }
 }

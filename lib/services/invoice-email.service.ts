@@ -6,6 +6,7 @@ import { getSymbolByMint, getTokenByMint } from '@/lib/tokens/tokens'
 import { rawToHumanAmount } from '@/lib/solana/amount'
 import { buildReceiptEmailHtml, buildReceiptEmailSubject, type ReceiptEmailData } from '@/lib/email/invoice-email'
 import { getInvoiceForReceipt } from './invoice.service'
+import { SITE_URL } from '@/lib/site-url'
 
 /**
  * Sends a payment receipt to the client if the invoice has a clientEmail.
@@ -20,7 +21,7 @@ export async function sendInvoiceReceiptIfApplicable(
   const invoice = await getInvoiceForReceipt(invoiceId)
   if (!invoice?.clientEmail) return
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const siteUrl = SITE_URL
   const tokenSymbol = getSymbolByMint(invoice.token) ?? invoice.token
 
   const inputTokenEntry = getTokenByMint(inputToken)

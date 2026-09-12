@@ -4,16 +4,17 @@ import { FlowSection } from '@/components/landing/flow-section'
 import { FeaturesSection } from '@/components/landing/features-section'
 import { SendShowcaseSection } from '@/components/landing/send-showcase-section'
 import { FaqSection } from '@/components/landing/faq-section'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
-  alternates: { canonical: 'https://settlix.itssvk.dev' },
+  alternates: { canonical: SITE_URL },
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'SetL iT',
-  url: 'https://settlix.itssvk.dev',
+  url: SITE_URL,
   applicationCategory: 'FinanceApplication',
   operatingSystem: 'Web',
   description:

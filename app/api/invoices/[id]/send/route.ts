@@ -8,6 +8,7 @@ import { getInvoiceById } from '@/lib/services/invoice.service'
 import { getEmailSender, getResendApiKey } from '@/lib/env/server'
 import { getSymbolByMint } from '@/lib/tokens/tokens'
 import { buildInvoiceEmailHtml, buildInvoiceEmailSubject, type InvoiceEmailData } from '@/lib/email/invoice-email'
+import { SITE_URL } from '@/lib/site-url'
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest, { params }: Params) {
       return NextResponse.json({ error: 'Invoice has no client email' }, { status: 400 })
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+    const siteUrl = SITE_URL
     const invoiceUrl = `${siteUrl}/invoice/${id}`
 
     const tokenSymbol = getSymbolByMint(invoice.token) ?? invoice.token

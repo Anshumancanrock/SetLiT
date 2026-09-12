@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 
-const BASE_URL = 'https://settlix.itssvk.dev'
+import { SITE_URL } from '@/lib/site-url'
+
+const BASE_URL = SITE_URL
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

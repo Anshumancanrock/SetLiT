@@ -30,6 +30,7 @@ import {
   buildCancelledHtml,
   buildCancelledSubject,
 } from '@/lib/email/subscription-email'
+import { SITE_URL } from '@/lib/site-url'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -351,7 +352,7 @@ async function sendWarningEmail(params: {
   failureReason?: string
 }): Promise<void> {
   if (!params.subscriberEmail) return
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const siteUrl = SITE_URL
   const tokenSymbol = getSymbolByMint(params.token) ?? params.token.slice(0, 6)
 
   try {
@@ -394,7 +395,7 @@ export async function sendSubscriptionConfirmationEmail(params: {
   txSignature: string
 }): Promise<void> {
   if (!params.subscriberEmail) return
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const siteUrl = SITE_URL
   const tokenSymbol = getSymbolByMint(params.token) ?? params.token.slice(0, 6)
 
   try {
@@ -433,7 +434,7 @@ export async function sendSubscriptionUserCancelledEmail(params: {
   accessUntil: string
 }): Promise<void> {
   if (!params.subscriberEmail) return
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const siteUrl = SITE_URL
   const tokenSymbol = getSymbolByMint(params.token) ?? params.token.slice(0, 6)
 
   try {
@@ -471,7 +472,7 @@ async function sendCancellationEmail(params: {
   failureReason?: string
 }): Promise<void> {
   if (!params.subscriberEmail) return
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const siteUrl = SITE_URL
   const tokenSymbol = getSymbolByMint(params.token) ?? params.token.slice(0, 6)
 
   try {

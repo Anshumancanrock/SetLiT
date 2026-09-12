@@ -7,14 +7,13 @@ import { Toaster } from 'sonner'
 import { FloatingThemeToggle } from '@/components/shared/floating-theme-toggle'
 import { Providers } from './providers'
 import { Analytics } from '@vercel/analytics/next'
+import { SITE_URL } from '@/lib/site-url'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const fontMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
-const BASE_URL = 'https://settlix.itssvk.dev'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: 'SetL iT — Accept Any Token. Receive USDC.',
@@ -53,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: BASE_URL,
+    url: SITE_URL,
     siteName: 'SetL iT',
     title: 'SetL iT — Accept Any Token. Receive USDC.',
     description:
@@ -92,7 +91,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: BASE_URL,
+    canonical: SITE_URL,
   },
 }
 
