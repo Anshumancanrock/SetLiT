@@ -147,6 +147,9 @@ bun run db:seed
 
 # Start dev server
 bun dev
+
+# Run tests
+bun test
 ```
 
 ### Environment variables

@@ -23,7 +23,9 @@ bun run db:studio    # Prisma Studio GUI
 bun run db:seed      # Seed demo data
 ```
 
-There are no tests. The package manager is **bun** — do not use npm or yarn.
+Tests run on bun's built-in runner (`bun test`), so there is no separate test framework to install. Specs live in `tests/` and cover pure logic only: amount conversion, the split-recipient invariant, settlement-mint gating, wallet signature verification, and site-origin normalisation. Anything needing a database or an RPC endpoint is currently untested.
+
+The package manager is **bun** — do not use npm or yarn.
 
 ## Environment Variables
 
@@ -39,7 +41,10 @@ Copy `.env.example` to `.env.local`. Required keys:
 | `AUTH_SECRET`                       | JWT signing secret (`openssl rand -base64 32`)                                    |
 | `RESEND_API_KEY`                    | Transactional email (Resend)                                                      |
 | `SUBSCRIPTION_RELAYER_KEYPAIR_JSON` | Hot wallet keypair JSON array for subscription renewals — must be funded with SOL |
-| `CRON_SECRET`                       | Shared secret for `POST /api/cron/process-renewals`                               |
+| `CRON_SECRET`                       | Shared secret for `/api/cron/process-renewals`                                    |
+| `NEXT_PUBLIC_SITE_URL`              | Public origin of the deployment — required in production                          |
+
+`lib/site-url.ts` is the single source of truth for the deployment origin. Import `SITE_URL` or `SITE_HOST` from it rather than reading `NEXT_PUBLIC_SITE_URL` directly or hardcoding a domain; it normalises the value and falls back to localhost when unset. Because the variable is `NEXT_PUBLIC_`, it is inlined at build time and must be present when the production build runs.
 
 ## Architecture
 
@@ -106,7 +111,7 @@ Prisma 7 with the `@prisma/adapter-pg` driver (PostgreSQL). The generated client
 - `PaymentExecution`: exactly one of `linkId`, `invoiceId`, `renewalId`, or `merchantId` is non-null, matching `source`.
 - `PaymentExecution.onDelete: Restrict` on all parent relations — execution records are payment proof and must never be deleted. Parents use soft-delete (`archivedAt` / `cancelledAt`).
 - `clientExecutionId` (`@unique`) is the idempotency key — the submit endpoint is safe to retry.
-- `SplitRecipient.basisPoints` across all recipients must sum to 10000. Validated in `lib/validation/links.ts` at the API layer (max 10 recipients).
+- `SplitRecipient.basisPoints` across all recipients must sum to 10000. The rule is `isValidSplit` in `lib/validation/links.ts`, applied by `app/api/links/route.ts` (max 10 recipients).
 
 ### Services Layer
 
