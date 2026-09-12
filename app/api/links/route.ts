@@ -6,7 +6,7 @@ import { getSolanaCluster } from '@/lib/env/server'
 import { decimalFromCreateLinkAmount } from '@/lib/money'
 import { isAllowedSettlementMint } from '@/lib/solana/constants'
 import { createPaymentLink } from '@/lib/services/payment-link.service'
-import { createLinkBody } from '@/lib/validation'
+import { createLinkBody, isValidSplit, sumBasisPoints, TOTAL_BASIS_POINTS } from '@/lib/validation'
 import { INVALID_AMOUNT, UNSUPPORTED_SETTLEMENT_TOKEN, VALIDATION } from '@/lib/api/constants'
 import { requireAuth } from '@/lib/auth/require-auth'
 import { PaymentExecution, SplitRecipient } from '@/lib/generated/prisma/client'
@@ -112,9 +112,12 @@ export async function POST(req: NextRequest) {
       }
 
       // Basis points must sum to exactly 10000
-      const totalBps = recipients.reduce((sum, r) => sum + r.basisPoints, 0)
-      if (totalBps !== 10000) {
-        throw new ApiError(400, `Recipient basis points must sum to 10000 (got ${totalBps})`, 'INVALID_SPLIT_BPS')
+      if (!isValidSplit(recipients)) {
+        throw new ApiError(
+          400,
+          `Recipient basis points must sum to ${TOTAL_BASIS_POINTS} (got ${sumBasisPoints(recipients)})`,
+          'INVALID_SPLIT_BPS',
+        )
       }
     }
 

@@ -8,6 +8,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "bun test",
     "format": "bunx prettier --write .",
     "db:init": "prisma init",
     "db:generate": "prisma generate",

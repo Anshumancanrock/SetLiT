@@ -8,6 +8,24 @@ export const splitRecipientInput = z.object({
   basisPoints: z.number().int().min(1).max(9999),
 })
 
+/** Basis points across all split recipients must add up to exactly this. */
+export const TOTAL_BASIS_POINTS = 10_000
+
+/**
+ * Sum of basis points across a split.
+ *
+ * Kept separate from the Zod schema because the rule spans the whole array while
+ * `splitRecipientInput` only sees one entry at a time.
+ */
+export function sumBasisPoints(recipients: readonly { basisPoints: number }[]): number {
+  return recipients.reduce((sum, r) => sum + r.basisPoints, 0)
+}
+
+/** True when a split allocates the payment exactly once, with no shortfall or overflow. */
+export function isValidSplit(recipients: readonly { basisPoints: number }[]): boolean {
+  return sumBasisPoints(recipients) === TOTAL_BASIS_POINTS
+}
+
 export const createLinkBody = z.object({
   token: z.string().min(32).max(64),
   amount: z.union([z.number().positive(), z.string()]),
