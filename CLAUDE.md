@@ -63,7 +63,7 @@ Two auth layers share the same `requireAuth(req)` call in `lib/auth/require-auth
 - `requireSession` — cookie only. Use for all standard webapp/dashboard routes (browser-only access).
 - `requireAuth` — cookie **or** Bearer API key. Use only for routes that intentionally expose headless/programmatic access (e.g. a merchant integrating via API key).
 
-**Nonce store** (`lib/auth/nonce-store.ts`) is an in-memory `Map` with a 5-minute TTL. It does not survive process restarts and is not safe for multi-instance deployments — migrate to Redis if scaling horizontally.
+**Nonce store** (`lib/auth/nonce-store.ts`) is the `AuthNonce` table with a 5-minute TTL. It is in Postgres rather than memory because the instance serving `/api/auth/nonce` is usually not the one serving `/api/auth/login`. Consumption is a single conditional `deleteMany`, so a nonce can only be redeemed once even under concurrent logins.
 
 ### Payment Flows
 
@@ -85,15 +85,15 @@ Transfer paths (personal pay page) mirror the above under `app/api/checkout/tran
 
 ### Solana Pay QR
 
-The Solana Pay path is handled separately. The buyer QR-scans a link that encodes a `GET /api/pay/[id]/solana-pay/[mint]/[session]` URL. The wallet fetches a pre-built transaction from that endpoint and submits it. A session is registered in `lib/realtime/solana-pay-session-store.ts` (an in-memory `Map` stored on `globalThis`) so the buyer's browser can poll for confirmation via SSE.
+The Solana Pay path is handled separately. The buyer QR-scans a link that encodes a `GET /api/pay/[id]/solana-pay/[mint]/[session]` URL. The wallet fetches a pre-built transaction from that endpoint and submits it. A session is written to the `SolanaPaySession` table (`lib/realtime/solana-pay-session-store.ts`) so the buyer's browser can poll `/api/links/[id]/payment-status` for confirmation.
 
-**Known constraint**: The Solana Pay session store is in-memory. Sessions are lost on process restart, which causes the buyer's browser to silently time out. See `PAYMENT_TRACKING_NOTES.md` for the full analysis before touching this code.
+**Confirmation is poll-driven.** Each status poll runs one bounded scan of the merchant's recent signatures via `lib/services/solana-pay-watch.service.ts`, and records the payment when it finds a settling transaction. There is deliberately no background watcher: the previous design started a 3-minute loop with `void` after the response was returned, which serverless terminates immediately. Keep confirmation work inside the request that polls for it.
 
 ### Subscription Renewals
 
 `SubscriptionPlan` → `Subscriber` → `SubscriptionRenewal` → `PaymentExecution`.
 
-Renewals are triggered by a cron endpoint (`POST /api/cron/process-renewals`, secured by `CRON_SECRET`). The relayer keypair (`SUBSCRIPTION_RELAYER_KEYPAIR_JSON`) signs renewal transactions on behalf of the subscriber — the subscriber must have pre-authorized the relayer to spend their tokens. Logic lives in `lib/services/subscription-renewal.service.ts` and `lib/solana/subscriptionTxBuilder.ts`.
+Renewals are triggered by a cron endpoint (`/api/cron/process-renewals`, secured by `CRON_SECRET`). `GET` is for Vercel Cron, which sends `Authorization: Bearer <CRON_SECRET>`; `POST` is for manual or external schedulers, which send `X-Cron-Secret`. `processDueRenewals` only does work at UTC hours 22, 23 and 0 (three retry attempts around midnight UTC), so `vercel.json` schedules it at exactly those hours. The relayer keypair (`SUBSCRIPTION_RELAYER_KEYPAIR_JSON`) signs renewal transactions on behalf of the subscriber — the subscriber must have pre-authorized the relayer to spend their tokens. Logic lives in `lib/services/subscription-renewal.service.ts` and `lib/solana/subscriptionTxBuilder.ts`.
 
 ### Database
 
