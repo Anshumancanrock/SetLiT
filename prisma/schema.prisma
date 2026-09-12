@@ -270,3 +270,53 @@ model ApiKey {
 
   @@index([merchantId])
 }
+
+// ---------------------------------------------------------------------------
+// Auth Nonces
+//
+// Shared across instances so the nonce issued by /api/auth/nonce is visible to
+// whichever instance serves /api/auth/login. Consumed by an atomic delete, so a
+// nonce can only ever be redeemed once.
+// ---------------------------------------------------------------------------
+
+model AuthNonce {
+  value     String   @id
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([expiresAt])
+}
+
+// ---------------------------------------------------------------------------
+// Solana Pay Sessions
+//
+// Persisted rather than held in process memory: the wallet hits one instance to
+// fetch the transaction and the buyer's browser polls another for confirmation.
+// ---------------------------------------------------------------------------
+
+enum SolanaPayStatus {
+  watching
+  confirmed
+  timeout
+}
+
+model SolanaPaySession {
+  sessionId      String          @id
+  linkId         String
+  merchantWallet String
+  buyerWallet    String
+  inputMint      String
+  outputMint     String
+  inAmount       String
+  outAmount      String
+  requestId      String?
+  isDirect       Boolean
+  status         SolanaPayStatus @default(watching)
+  txSignature    String?
+  lastCheckedAt  DateTime?
+  createdAt      DateTime        @default(now())
+  expiresAt      DateTime
+
+  @@index([expiresAt])
+  @@index([linkId])
+}

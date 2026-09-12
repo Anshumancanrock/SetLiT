@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     const { wallet, signature, nonce } = parsed.data
 
     // 1. Consume the nonce — rejects expired or already-used nonces
-    const nonceValid = consumeNonce(nonce)
+    const nonceValid = await consumeNonce(nonce)
     if (!nonceValid) {
       throw new ApiError(401, 'Nonce is invalid or expired', UNAUTHORIZED)
     }

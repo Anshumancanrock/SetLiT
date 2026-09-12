@@ -1,49 +1,37 @@
 /**
- * In-memory nonce store with 5-minute TTL.
+ * Database-backed nonce store with a 5-minute TTL.
  *
  * Each nonce is issued once and consumed once — replaying a nonce is rejected.
  *
- * NOTE: This module-level Map lives in a single Node.js process. If you ever
- * run multiple server instances behind a load balancer, migrate this to a
- * shared Redis store (e.g. with `ioredis` and a short-lived key TTL).
+ * Nonces live in Postgres rather than process memory because the instance that
+ * serves `GET /api/auth/nonce` is frequently not the instance that serves the
+ * following `POST /api/auth/login`. Consumption is a single conditional DELETE,
+ * so two concurrent logins racing on the same nonce can never both succeed.
  */
+
+import { prisma } from '@/lib/db'
 
 const NONCE_TTL_MS = 5 * 60 * 1000 // 5 minutes
 
-interface NonceEntry {
-  expiresAt: number
-}
-
-const globalForStore = globalThis as unknown as {
-  store: Map<string, NonceEntry> | undefined
-  intervalId: ReturnType<typeof setInterval> | undefined
-}
-
-const store = globalForStore.store ?? new Map<string, NonceEntry>()
-
-// Evict expired nonces every minute to prevent unbounded memory growth
-if (!globalForStore.intervalId) {
-  globalForStore.intervalId = setInterval(() => {
-    const now = Date.now()
-    for (const [nonce, entry] of store) {
-      if (entry.expiresAt <= now) {
-        store.delete(nonce)
-      }
-    }
-  }, 60_000).unref() // Do not prevent process exit
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForStore.store = store
-}
+/** Chance of sweeping expired rows on any given issue, keeping the table small. */
+const SWEEP_PROBABILITY = 0.02
 
 /**
  * Issue a fresh nonce and register it in the store.
  * Returns the nonce string that must be sent to the client.
  */
-export function issueNonce(): string {
+export async function issueNonce(): Promise<string> {
   const nonce = crypto.randomUUID()
-  store.set(nonce, { expiresAt: Date.now() + NONCE_TTL_MS })
+
+  await prisma.authNonce.create({
+    data: { value: nonce, expiresAt: new Date(Date.now() + NONCE_TTL_MS) },
+  })
+
+  if (Math.random() < SWEEP_PROBABILITY) {
+    // Best-effort cleanup; a failed sweep must never fail the request.
+    void prisma.authNonce.deleteMany({ where: { expiresAt: { lte: new Date() } } }).catch(() => {})
+  }
+
   return nonce
 }
 
@@ -52,13 +40,12 @@ export function issueNonce(): string {
  * Returns `true` if the nonce existed and had not expired, `false` otherwise.
  * A nonce can only be consumed once.
  */
-export function consumeNonce(nonce: string): boolean {
-  const entry = store.get(nonce)
-  if (!entry) return false
-  if (entry.expiresAt <= Date.now()) {
-    store.delete(nonce)
-    return false
-  }
-  store.delete(nonce)
-  return true
+export async function consumeNonce(nonce: string): Promise<boolean> {
+  // The expiry check lives in the WHERE clause so the lookup and the delete are
+  // one atomic statement. An expired row simply fails to match and is swept later.
+  const { count } = await prisma.authNonce.deleteMany({
+    where: { value: nonce, expiresAt: { gt: new Date() } },
+  })
+
+  return count === 1
 }

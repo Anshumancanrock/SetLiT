@@ -12,7 +12,7 @@ import { handleApi } from '@/lib/api/errors'
  */
 export async function GET() {
   return handleApi(async () => {
-    const nonce = issueNonce()
+    const nonce = await issueNonce()
     return NextResponse.json({ nonce })
   })
 }

@@ -1,17 +1,10 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { PublicKey } from '@solana/web3.js'
 
 import { handleApi } from '@/lib/api/errors'
 import { paymentLinkId } from '@/lib/validation'
 import { getPaymentLinkByDetails } from '@/lib/solana/database-lookup'
 import { executeJupiterOrderRequest } from '@/lib/services/jupiter-order.service'
-import { processSubmitTx } from '@/lib/services/payment-submit.service'
-import { createServerConnection } from '@/lib/solana/connection'
-import {
-  createSolanaPaySession,
-  updateSolanaPaySession,
-  type SolanaPaySession,
-} from '@/lib/realtime/solana-pay-session-store'
+import { createSolanaPaySession } from '@/lib/realtime/solana-pay-session-store'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -78,7 +71,9 @@ export async function POST(req: NextRequest, { params }: Params) {
       return NextResponse.json({ error: 'Failed to build transaction' }, { status: 500, headers: CORS })
     }
 
-    const session: SolanaPaySession = {
+    // Confirmation is driven by the buyer's status polls, so the session only
+    // has to outlive this request.
+    await createSolanaPaySession({
       sessionId,
       linkId: id,
       merchantWallet: link.merchant.wallet,
@@ -89,78 +84,8 @@ export async function POST(req: NextRequest, { params }: Params) {
       outAmount: order.outAmount,
       requestId: order.requestId,
       isDirect: order.isDirect,
-      createdAt: Date.now(),
-      status: 'watching',
-    }
-    createSolanaPaySession(session)
-
-    void watchAndRecord(session).catch(() => {
-      updateSolanaPaySession(sessionId, { status: 'timeout' })
     })
 
     return NextResponse.json({ transaction: order.transaction }, { headers: CORS })
   })
-}
-
-// ---------------------------------------------------------------------------
-// Background watcher
-// ---------------------------------------------------------------------------
-
-function sleep(ms: number) {
-  return new Promise<void>((resolve) => setTimeout(resolve, ms))
-}
-
-async function watchAndRecord(session: SolanaPaySession) {
-  const connection = createServerConnection()
-  const merchantPk = new PublicKey(session.merchantWallet)
-
-  await sleep(4_000)
-
-  const deadline = session.createdAt + 3 * 60 * 1000
-
-  while (Date.now() < deadline) {
-    try {
-      const sigs = await connection.getSignaturesForAddress(merchantPk, { limit: 15 })
-
-      for (const sigInfo of sigs) {
-        if (sigInfo.err) continue
-        if ((sigInfo.blockTime ?? 0) * 1_000 < session.createdAt) continue
-
-        const tx = await connection.getTransaction(sigInfo.signature, {
-          maxSupportedTransactionVersion: 0,
-        })
-        if (!tx) continue
-
-        const accountKeys = tx.transaction.message.staticAccountKeys ?? []
-        const involvesBuyer = accountKeys.some((k) => k.toBase58() === session.buyerWallet)
-        if (!involvesBuyer) continue
-
-        const result = await processSubmitTx({
-          executionId: crypto.randomUUID(),
-          source: 'payment_link',
-          txSignature: sigInfo.signature,
-          linkId: session.linkId,
-          userWallet: session.buyerWallet,
-          inputToken: session.inputMint,
-          inputAmount: session.inAmount,
-          outputAmount: session.outAmount,
-        })
-
-        if (result.ok) {
-          updateSolanaPaySession(session.sessionId, {
-            status: 'confirmed',
-            txSignature: sigInfo.signature,
-          })
-          return
-        }
-        // Verification failed — unrelated tx, keep watching.
-      }
-    } catch {
-      // Transient RPC error — keep trying.
-    }
-
-    await sleep(3_000)
-  }
-
-  updateSolanaPaySession(session.sessionId, { status: 'timeout' })
 }
