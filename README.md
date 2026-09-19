@@ -1,4 +1,4 @@
-# SetL iT
+# SetLiT
 
 Non-custodial Solana payment infrastructure for merchants and creators.
 
